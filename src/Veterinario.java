@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
 
 public class Veterinario {
 	private int crmv;
@@ -52,5 +54,19 @@ public class Veterinario {
 	}
 	
 	//Listar veterinários cadastrados:
+	public void listarVeterinarios(String ListaDeVeterinarios) throws IOException{
+		FileReader file = new FileReader(ListaDeVeterinarios);
+		
+		BufferedReader reader = new BufferedReader(file);
+		String linha = reader.readLine();
+		while (linha != null) {
+			System.out.println(linha);
+			linha = reader.readLine();
+		}
+		file.close();
+	}
+	
+	//Editar Veterinario Cadastrado:
+	
 	
 }
