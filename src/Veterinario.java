@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 
+
 public class Veterinario {
 	private int crmv;
 	private String nome;
@@ -44,29 +45,42 @@ public class Veterinario {
 	
 	//Cadastro de Veterinario:
 	public void cadastroVeterinario(Veterinario veterinario) throws IOException{
-		ArrayList<Object> veterinarios = new ArrayList<Object>();
+		//Criando o ArrayList:
+		ArrayList<Object> veterinarios = new ArrayList<>();
+		//Abrindo arquivo onde será salva a lista de veterinários:
 		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", true);
 		PrintWriter writer = new PrintWriter(file);
+		//Adicionando Objeto à lista de cadastro:
 		veterinarios.add(veterinario.getCrmv()+";"+veterinario.getNome()+";"+veterinario.getEspecialidade());
+		//Cadastrando Vetor de veterinários:
 		writer.println(veterinarios);
-		
+		//Fechando Arquivo de veterinários:
 		file.close();
 	}
 	
 	//Listar veterinários cadastrados:
-	public void listarVeterinarios(String ListaDeVeterinarios) throws IOException{
-		FileReader file = new FileReader(ListaDeVeterinarios);
-		
+	public void listarVeterinarios() throws IOException{
+		FileReader file = new FileReader("ListaDeVeterinarios.txt");
 		BufferedReader reader = new BufferedReader(file);
-		String linha = reader.readLine();
-		while (linha != null) {
-			System.out.println(linha);
-			linha = reader.readLine();
+		
+		ArrayList<String> veterinarios = new ArrayList<>();
+		
+		String linha =reader.readLine();
+		while(linha != null){
+            veterinarios.add(linha);
+            linha = reader.readLine();
+        }
+        
+        int flag = 0;
+		while( flag < veterinarios.size()) {
+			System.out.println(veterinarios.get(flag));
+			flag+=1;
 		}
 		file.close();
+	
 	}
 	
-	//Editar Veterinario Cadastrado:
+	//Buscar Veterinario Cadastrado:
 	
 	
 }
