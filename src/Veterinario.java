@@ -43,13 +43,11 @@ public class Veterinario {
 	}
 	
 	//Cadastro de Veterinario:
-	public void cadastroVeterinario(Veterinario[] veterinario) throws IOException{
+	public void cadastroVeterinario(Veterinario veterinario) throws IOException{
 		ArrayList<Object> veterinarios = new ArrayList<Object>();
-		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
+		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", true);
 		PrintWriter writer = new PrintWriter(file);
-		for(int i=0;i<=veterinario.length;i++) {
-			veterinarios.add(veterinario[i]);			
-		}
+		veterinarios.add(veterinario.getCrmv()+";"+veterinario.getNome()+";"+veterinario.getEspecialidade());
 		writer.println(veterinarios);
 		
 		file.close();
