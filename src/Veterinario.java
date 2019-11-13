@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.util.ArrayList;
 
 public class Veterinario {
 	private int crmv;
@@ -43,12 +44,13 @@ public class Veterinario {
 	
 	//Cadastro de Veterinario:
 	public void cadastroVeterinario(Veterinario[] veterinario) throws IOException{
+		ArrayList<Object> veterinarios = new ArrayList<Object>();
 		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
 		PrintWriter writer = new PrintWriter(file);
-		writer.println(veterinario.length);
 		for(int i=0;i<=veterinario.length;i++) {
-			writer.println(veterinario[i].getCrmv() +";"+veterinario[i].getNome()+";"+veterinario[i].getEspecialidade());			
+			veterinarios.add(veterinario[i]);			
 		}
+		writer.println(veterinarios);
 		
 		file.close();
 	}
