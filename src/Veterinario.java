@@ -40,11 +40,17 @@ public class Veterinario {
 	}
 	
 	//Cadastro de Veterinario:
-	public void cadastroVeterinario(Veterinario veterinario) throws IOException{
+	public void cadastroVeterinario(Veterinario[] veterinario) throws IOException{
 		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
 		PrintWriter writer = new PrintWriter(file);
-		writer.println(veterinario.getCrmv() +";"+veterinario.getNome()+";"+veterinario.getEspecialidade());
+		writer.println(veterinario.length);
+		for(int i=0;i<=veterinario.length;i++) {
+			writer.println(veterinario[i].getCrmv() +";"+veterinario[i].getNome()+";"+veterinario[i].getEspecialidade());			
+		}
 		
 		file.close();
 	}
+	
+	//Listar veterinários cadastrados:
+	
 }
