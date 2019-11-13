@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 public class Veterinario {
 	private int crmv;
@@ -34,5 +37,14 @@ public class Veterinario {
 	}
 	public void setEspecialidade(String especialidade) {
 		this.especialidade = especialidade;
+	}
+	
+	//Cadastro de Veterinario:
+	public void cadastroVeterinario(Veterinario veterinario) throws IOException{
+		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
+		PrintWriter writer = new PrintWriter(file);
+		writer.println(veterinario.getCrmv() +";"+veterinario.getNome()+";"+veterinario.getEspecialidade());
+		
+		file.close();
 	}
 }
