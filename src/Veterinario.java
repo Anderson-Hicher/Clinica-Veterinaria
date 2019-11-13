@@ -59,7 +59,7 @@ public class Veterinario {
 	}
 	
 	//Listar veterinários cadastrados:
-	public void listarVeterinarios() throws IOException{
+	public ArrayList<String> listarVeterinarios() throws IOException{
 		FileReader file = new FileReader("ListaDeVeterinarios.txt");
 		BufferedReader reader = new BufferedReader(file);
 		
@@ -71,16 +71,31 @@ public class Veterinario {
             linha = reader.readLine();
         }
         
-        int flag = 0;
-		while( flag < veterinarios.size()) {
-			System.out.println(veterinarios.get(flag));
-			flag+=1;
-		}
+        
 		file.close();
+		return veterinarios;
 	
 	}
 	
-	//Buscar Veterinario Cadastrado:
+	//Buscar Veterinario Cadastrado pelo Nome:
 	
-	
+	public String buscaNome(String nome) throws IOException{
+		ArrayList<String> veterinarios= new ArrayList<>();
+		veterinarios = listarVeterinarios();
+		int total = veterinarios.size();
+		String arrayVeterinario[] = new String[3]; 
+		int flag = 0;
+		while(flag < total) {
+			String veterinario = veterinarios.get(flag);
+			arrayVeterinario = veterinario.split(";");
+			String nomeCarregado = arrayVeterinario[1];
+			if( nomeCarregado.equals(nome)) {
+				return veterinario;
+			}else {
+				flag++;
+			}
+		}
+		
+		return null;
+	}
 }

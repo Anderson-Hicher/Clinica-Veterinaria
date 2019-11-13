@@ -8,7 +8,8 @@ public class MenuInicial {
 		Veterinario teste = new Veterinario();
 		
 		try {
-			teste.listarVeterinarios();
+			String retorno = teste.buscaNome("Jadsmir Aragonunes");
+			System.out.println(retorno);
 		} catch (Exception e) {
 			System.out.println("Falha em abrir arquivo");
 			System.out.println(e.getMessage());
