@@ -30,7 +30,7 @@ public class Veterinario {
 	}
 	
 	/*
-	 #########################Getters and Setters:###########################
+	 ######################### Getters and Setters: ###########################
 	 */
 	public int getCrmv() {
 		return this.crmv;

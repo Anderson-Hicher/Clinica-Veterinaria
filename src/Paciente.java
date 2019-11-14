@@ -1,3 +1,8 @@
+/**
+ * @author andersonhicher
+ *
+ */
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -5,10 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-/**
- * @author andersonhicher
- *
- */
+
 
 public class Paciente {
 	private int id;
@@ -27,8 +29,8 @@ public class Paciente {
 	public Paciente() {}
 
 	//construtor da classe:
-	public Paciente(int id, String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro) {
-		this.id = id;
+	public Paciente(String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro) {
+		this.id = iteradorAutomaticoDeIds();
 		this.nome = nome;
 		this.sexo = sexo;
 		this.raca = raca;
@@ -45,10 +47,6 @@ public class Paciente {
 	
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getNome() {
@@ -113,22 +111,26 @@ public class Paciente {
 	 */
 	
 	public void cadastroPaciente(Paciente paciente) throws IOException{
+		if(paciente.getId()==-1) {
+			System.out.println("Erro no cadastro do Paciente. O arquivo de dados não pode ser aberto ou está corrompido");
+		}else {
+			//Criando o ArrayList:
+			ArrayList<Object> pacientes = new ArrayList<>();
+			
+			//Abrindo arquivo onde será salva a lista de pacientes:
+			FileWriter file = new FileWriter("ListaDePacientes.txt", true);
+			PrintWriter writer = new PrintWriter(file);
+			
+			//Adicionando Objeto à lista de cadastro:
+			pacientes.add(paciente.getId()+";"+paciente.getNome()+";"+paciente.getSexo()+";"+paciente.getRaca()+";"+paciente.getPeso()+";"+paciente.getCpfDono()+";"+paciente.getIdade()+";"+paciente.getDataCadastro());
+			
+			//Cadastrando Vetor de pacientes:
+			writer.println(pacientes);
+			
+			//Fechando Arquivo de pacientes:
+			file.close();
+		}
 		
-		//Criando o ArrayList:
-		ArrayList<Object> pacientes = new ArrayList<>();
-		
-		//Abrindo arquivo onde será salva a lista de pacientes:
-		FileWriter file = new FileWriter("ListaDePacientes.txt", true);
-		PrintWriter writer = new PrintWriter(file);
-		
-		//Adicionando Objeto à lista de cadastro:
-		pacientes.add(paciente.getId()+";"+paciente.getNome()+";"+paciente.getSexo()+";"+paciente.getRaca()+";"+paciente.getPeso()+";"+paciente.getCpfDono()+";"+paciente.getIdade()+";"+paciente.getDataCadastro());
-		
-		//Cadastrando Vetor de pacientes:
-		writer.println(pacientes);
-		
-		//Fechando Arquivo de pacientes:
-		file.close();
 	}
 	
 	/*
@@ -229,7 +231,7 @@ public class Paciente {
 			int total = ListaPacientes.size();
 			while(indiceDoArray < total) {
 				
-				//Percorre o ArrayList e armazena os dados do veterinário atual 
+				//Percorre o ArrayList e armazena os dados do Paciente atual 
 				String paciente = ListaPacientes.get(indiceDoArray);
 				
 				//Quebra a string de dados
@@ -246,12 +248,12 @@ public class Paciente {
 				}
 			}
 			//Cria novo objeto paciente com os novos dados:
-			Paciente pacienteEditado = new Paciente(novoId,nome,sexo, raca, peso, idade, cpfDono, dataCadastro);
+			Paciente pacienteEditado = new Paciente(nome,sexo, raca, peso, idade, cpfDono, dataCadastro);
 			
 			//Adicionando Objeto à lista de cadastro:
 			ListaPacientes.add(pacienteEditado.getId()+";"+pacienteEditado.getNome()+";"+pacienteEditado.getSexo()+";"+pacienteEditado.getPeso()+";"+pacienteEditado.getIdade()+";"+pacienteEditado.getCpfDono()+";"+pacienteEditado.getDataCadastro());
 			
-			//Abre e reseta o conteudo de ListaDeVeterinarios.txt, salvando nova lista de Veterinários:
+			//Abre e reseta o conteudo de ListaDeVeterinarios.txt, salvando nova lista de Pacientes:
 			FileWriter file = new FileWriter("ListaDePacientes.txt", false);
 			PrintWriter writer = new PrintWriter(file);
 			writer.println(ListaPacientes);
@@ -262,6 +264,73 @@ public class Paciente {
 		
 	}
 	
+	/*
+	 ######################### Excluir Paciente Cadastrado por Id:#########################
+	 */
+
+	public void excluirPacienteCadastrado(int id) throws IOException{
+		ArrayList<String> ListaPacientes= new ArrayList<>();
+		
+		//Verificar se o id do paciente está cadastrado ( caso encontre, flag ==1, senão flag ==0):
+		int flag = 0;
+		//Implementando verificação dentro do metodo buscaId():
+		if(buscaId(id) != null) {
+			flag = 1;
+		}else {
+			flag =0;
+		}
+		
+		
+		//Se o id foi encontrado, lista os pacientes cadastrados:
+		if(flag == 0) {
+			System.out.println("Paciente não encontrado. O Id digitado não está cadastrado.\n");
+		}else {
+			ListaPacientes=listarPacientes();
+						
+			//Iterando sobre a lista copiada do arquivo para realizar alteração:
+			//Cria um array simples para armazenar os dados de um único Paciente cadastrado:
+			String arrayPaciente[] = new String[8]; 
+			int indiceDoArray = 0;
+			int total = ListaPacientes.size();
+			while(indiceDoArray < total) {
+				
+				//Percorre o ArrayList e armazena os dados do Paciente atual 
+				String paciente = ListaPacientes.get(indiceDoArray);
+				
+				//Quebra a string de dados
+				arrayPaciente = paciente.split(";");
+				
+				//Verifica se o Id buscado é igual ao Id cadastrado
+				int idCarregado = Integer.parseInt(arrayPaciente[0]);
+				if( idCarregado == id) {
+					
+					//Se o id verificado for igual, remove o indice do Paciente cadastrado:
+					ListaPacientes.remove(indiceDoArray);				
+				}else {
+					indiceDoArray++;
+				}
+			}
+		}
+		//Abre e reseta o conteudo de ListaDePacientes.txt, salvando nova lista de Pacientes:
+		FileWriter file = new FileWriter("ListaDePacientes.txt", false);
+		PrintWriter writer = new PrintWriter(file);
+		writer.println(ListaPacientes);
+		
+		file.close();
+	}
+	
+	public int iteradorAutomaticoDeIds(){
+		int id = -1;
+		try {
+			id = listarPacientes().size();
+			id++;
+		} catch (IOException e) {
+			System.out.println("Erro na função de listar parcientes");
+			System.out.println("Informações técnicas do erro: \n" + e.getMessage() );
+		}
+
+		return id;
+	}
 	
 	
 }
