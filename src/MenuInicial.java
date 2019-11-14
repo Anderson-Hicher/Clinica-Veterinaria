@@ -8,12 +8,11 @@ public class MenuInicial {
 		Veterinario teste = new Veterinario();
 		
 		try {
-			String retorno = teste.buscaNome("Jadsmir Aragonunes");
-			System.out.println(retorno);
+			System.out.println(teste.buscaCrmv("1354454"));
 		} catch (Exception e) {
-			System.out.println("Falha em abrir arquivo");
 			System.out.println(e.getMessage());
 		}
+		
 	}
 
 }

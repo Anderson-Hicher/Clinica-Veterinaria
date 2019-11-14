@@ -1,3 +1,5 @@
+
+
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -11,6 +13,9 @@ public class Veterinario {
 	private String nome;
 	private String especialidade;
 	
+	/*
+	 ######################### Construtores: ###########################
+	 */
 	//construtor padrão:
 	public Veterinario(){}
 	
@@ -21,7 +26,9 @@ public class Veterinario {
 		this.especialidade = especialidade;
 	}
 	
-	//Getters and Setters:
+	/*
+	 #########################Getters and Setters:###########################
+	 */
 	public int getCrmv() {
 		return this.crmv;
 	}
@@ -43,7 +50,9 @@ public class Veterinario {
 		this.especialidade = especialidade;
 	}
 	
-	//Cadastro de Veterinario:
+	/*
+	 ######################### Cadastro de Veterinario: #########################
+	 */
 	public void cadastroVeterinario(Veterinario veterinario) throws IOException{
 		
 		//Criando o ArrayList:
@@ -63,7 +72,11 @@ public class Veterinario {
 		file.close();
 	}
 	
-	//Listar veterinários cadastrados:
+	
+	/*
+	 ######################### Listar veterinários cadastrados: #########################
+	 */
+	
 	public ArrayList<String> listarVeterinarios() throws IOException{
 		
 		//Abrindo arquivo para leitura:
@@ -74,10 +87,11 @@ public class Veterinario {
 		ArrayList<String> veterinarios = new ArrayList<>();
 		
 		//Lendo dados do arquivo e salvando-os na ArrayList:
-		String linha =reader.readLine();
-		while(linha != null){
+		String vetor =reader.readLine();
+		while(vetor != null){
+			String linha = vetor.substring(1, vetor.length()-1);
             veterinarios.add(linha);
-            linha = reader.readLine();
+            vetor = reader.readLine();
         }
         
         //Fechando arquivo utilizado:
@@ -88,7 +102,48 @@ public class Veterinario {
 	
 	}
 	
-	//Buscar Veterinario Cadastrado pelo Nome:
+	/*
+	 ######################### Buscar Veterinario Cadastrado pelo CRMV:#########################
+	 */
+	
+	public String buscaCrmv(String crmv) throws IOException{
+		
+		//Cria um ArrayList e o preenche com o retorno do método listarVeterinarios():
+		ArrayList<String> veterinarios= new ArrayList<>();
+		veterinarios = listarVeterinarios();
+		
+		//Captura o tamanho do ArrayList criado:
+		int total = veterinarios.size();
+		
+		//Cria um array simples para armazenar os dados de um único veterinário cadastrado:
+		String arrayVeterinario[] = new String[3]; 
+		int flag = 0;
+		while(flag < total) {
+			
+			//Percorre o ArrayList e armazena os dados do veterinário atual 
+			String veterinario = veterinarios.get(flag);
+			
+			//Quebra a string de dados
+			arrayVeterinario = veterinario.split(";");
+			
+			//Verifica se o nome buscado é igual ao nome cadastrado
+			String nomeCarregado = arrayVeterinario[0];
+			if( nomeCarregado.equals(crmv)) {
+				
+				//Se o nome verificado for igual, retorna toda a string de dados
+				return veterinario;
+			}else {
+				flag++;
+			}
+		}
+		
+		//Se o nome não for encontrado retorna nulo:
+		return null;
+	}
+	
+	/*
+	 ######################### Buscar Veterinario Cadastrado pelo Nome:#########################
+	 */
 	
 	public String buscaNome(String nome) throws IOException{
 		
@@ -123,5 +178,13 @@ public class Veterinario {
 		
 		//Se o nome não for encontrado retorna nulo:
 		return null;
+	}
+	
+	/*
+	 ######################### Atualizar Veterinário Cadastrado por CRMV:#########################
+	 */
+	
+	public void editarVeterinarioCadastrado(String crmv) {
+		
 	}
 }
