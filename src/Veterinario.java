@@ -234,6 +234,9 @@ public class Veterinario {
 			//Cria novo objeto funcionario com os novos dados:
 			Veterinario veterinarioEditado = new Veterinario(novoCrmv,nome,especialidade);
 			
+			//Adicionando Objeto à lista de cadastro:
+			ListaVeterinarios.add(veterinarioEditado.getCrmv()+";"+veterinarioEditado.getNome()+";"+veterinarioEditado.getEspecialidade());
+			
 			//Abre e reseta o conteudo de ListaDeVeterinarios.txt, salvando nova lista de Veterinários:
 			FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
 			PrintWriter writer = new PrintWriter(file);
@@ -282,7 +285,7 @@ public class Veterinario {
 				//Quebra a string de dados
 				arrayVeterinario = veterinario.split(";");
 				
-				//Verifica se o nome buscado é igual ao nome cadastrado
+				//Verifica se o crmv buscado é igual ao nome cadastrado
 				int crmvCarregado = Integer.parseInt(arrayVeterinario[0]);
 				if( crmvCarregado == crmv) {
 					
