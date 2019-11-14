@@ -199,4 +199,69 @@ public class Paciente {
 		return null;
 	}
 	
+	/*
+	 ######################### Atualizar Paciente Cadastrado por seu Id:#########################
+	 */
+	
+	public void editarPacienteCadastrado(int idBusca, int novoId, String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro) throws IOException{
+		
+		ArrayList<String> ListaPacientes= new ArrayList<>();
+		
+		//Verificar se o Id do paciente está cadastrado ( caso encontre, flag ==1, senão flag ==0):
+		int flag = 0;
+		//Implementando verificação dentro do metodo buscaId():
+		if(buscaId(idBusca) != null) {
+			flag = 1;
+		}else {
+			flag =0;
+		}
+		
+		//Se o Id foi encontrado, lista os pacientes cadastrados:
+		if(flag == 0) {
+			System.out.println("Paciente não encontrado. O Id digitado não está cadastrado.\n");
+		}else {
+			ListaPacientes=listarPacientes();
+			
+			//Iterando sobre a lista copiada do arquivo para realizar alteração:
+			//Cria um array simples para armazenar os dados de um único paciente cadastrado:
+			String arrayPaciente[] = new String[8]; 
+			int indiceDoArray = 0;
+			int total = ListaPacientes.size();
+			while(indiceDoArray < total) {
+				
+				//Percorre o ArrayList e armazena os dados do veterinário atual 
+				String paciente = ListaPacientes.get(indiceDoArray);
+				
+				//Quebra a string de dados
+				arrayPaciente = paciente.split(";");
+				
+				//Verifica se o nome buscado é igual ao nome cadastrado
+				int idCarregado = Integer.parseInt(arrayPaciente[0]);
+				if( idCarregado == idBusca) {
+					
+					//Se o Id verificado for igual, remove o indice do paciente cadastrado:
+					ListaPacientes.remove(indiceDoArray);				
+				}else {
+					indiceDoArray++;
+				}
+			}
+			//Cria novo objeto paciente com os novos dados:
+			Paciente pacienteEditado = new Paciente(novoId,nome,sexo, raca, peso, idade, cpfDono, dataCadastro);
+			
+			//Adicionando Objeto à lista de cadastro:
+			ListaPacientes.add(pacienteEditado.getId()+";"+pacienteEditado.getNome()+";"+pacienteEditado.getSexo()+";"+pacienteEditado.getPeso()+";"+pacienteEditado.getIdade()+";"+pacienteEditado.getCpfDono()+";"+pacienteEditado.getDataCadastro());
+			
+			//Abre e reseta o conteudo de ListaDeVeterinarios.txt, salvando nova lista de Veterinários:
+			FileWriter file = new FileWriter("ListaDePacientes.txt", false);
+			PrintWriter writer = new PrintWriter(file);
+			writer.println(ListaPacientes);
+			writer.println(pacienteEditado);
+			
+			file.close();			
+		}
+		
+	}
+	
+	
+	
 }
