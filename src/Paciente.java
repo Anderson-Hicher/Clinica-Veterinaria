@@ -160,5 +160,43 @@ public class Paciente {
 	
 	}
 	
+	/*
+	 ######################### Buscar Paciente Cadastrado pelo Id:#########################
+	 */
+
+	public String buscaId(int id) throws IOException{
+		
+		//Cria um ArrayList e o preenche com o retorno do método listarPacientes():
+		ArrayList<String> pacientes = new ArrayList<>();
+		pacientes = listarPacientes();
+		
+		//Captura o tamanho do ArrayList criado:
+		int total = pacientes.size();
+		
+		//Cria um array simples para armazenar os dados de um único paciente cadastrado:
+		String arrayPacientes[] = new String[8]; 
+		int flag = 0;
+		while(flag < total) {
+			
+			//Percorre o ArrayList e armazena os dados do paciente atual 
+			String paciente = pacientes.get(flag);
+			
+			//Quebra a string de dados
+			arrayPacientes = paciente.split(";");
+			
+			//Verifica se o id buscado é igual ao id cadastrado
+			int idCarregado = Integer.parseInt(arrayPacientes[0]);
+			if( idCarregado == id) {
+				
+				//Se o nome verificado for igual, retorna toda a string de dados
+				return paciente;
+			}else {
+				flag++;
+			}
+		}
+		
+		//Se o id não for encontrado retorna nulo:
+		return null;
+	}
 	
 }

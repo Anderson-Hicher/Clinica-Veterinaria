@@ -148,10 +148,11 @@ public class Veterinario {
 	 ######################### Buscar Veterinario Cadastrado pelo Nome:#########################
 	 */
 	
-	public String buscaNome(String nome) throws IOException{
+	public ArrayList<String> buscaNome(String nome) throws IOException{
 		
 		//Cria um ArrayList e o preenche com o retorno do método listarVeterinarios():
 		ArrayList<String> veterinarios= new ArrayList<>();
+		ArrayList<String> encontrados = new ArrayList<>();
 		veterinarios = listarVeterinarios();
 		
 		//Captura o tamanho do ArrayList criado:
@@ -170,17 +171,22 @@ public class Veterinario {
 			
 			//Verifica se o nome buscado é igual ao nome cadastrado
 			String nomeCarregado = arrayVeterinario[1];
+			
 			if( nomeCarregado.equals(nome)) {
 				
-				//Se o nome verificado for igual, retorna toda a string de dados
-				return veterinario;
+				//Se o nome verificado for igual, Salva a string de dados no Array
+				encontrados.add(veterinarios.get(flag));
 			}else {
 				flag++;
 			}
 		}
+		if(encontrados.size()!=0) {
+			return encontrados;			
+		}else {
+			//Se o nome não for encontrado retorna nulo:
+			return null;
+		}
 		
-		//Se o nome não for encontrado retorna nulo:
-		return null;
 	}
 	
 	/*
