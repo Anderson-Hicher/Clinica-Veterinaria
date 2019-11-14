@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -115,18 +117,47 @@ public class Paciente {
 		//Criando o ArrayList:
 		ArrayList<Object> pacientes = new ArrayList<>();
 		
-		//Abrindo arquivo onde será salva a lista de veterinários:
+		//Abrindo arquivo onde será salva a lista de pacientes:
 		FileWriter file = new FileWriter("ListaDePacientes.txt", true);
 		PrintWriter writer = new PrintWriter(file);
 		
 		//Adicionando Objeto à lista de cadastro:
 		pacientes.add(paciente.getId()+";"+paciente.getNome()+";"+paciente.getSexo()+";"+paciente.getRaca()+";"+paciente.getPeso()+";"+paciente.getCpfDono()+";"+paciente.getIdade()+";"+paciente.getDataCadastro());
 		
-		//Cadastrando Vetor de veterinários:
+		//Cadastrando Vetor de pacientes:
 		writer.println(pacientes);
 		
-		//Fechando Arquivo de veterinários:
+		//Fechando Arquivo de pacientes:
 		file.close();
+	}
+	
+	/*
+	 ######################### Listar Pacientes cadastrados: #########################
+	 */
+
+	public ArrayList<String> listarPacientes() throws IOException{
+		
+		//Abrindo arquivo para leitura:
+		FileReader file = new FileReader("ListaDePacientes.txt");
+		BufferedReader reader = new BufferedReader(file);
+		
+		//Criando ArrayList para manter salvo os dados do arquivo:
+		ArrayList<String> pacientes = new ArrayList<>();
+		
+		//Lendo dados do arquivo e salvando-os na ArrayList:
+		String vetor =reader.readLine();
+		while(vetor != null){
+			String linha = vetor.substring(1, vetor.length()-1);
+            pacientes.add(linha);
+            vetor = reader.readLine();
+        }
+        
+        //Fechando arquivo utilizado:
+		file.close();
+		
+		//Retornando o ArrayList preenchido;
+		return pacientes;
+	
 	}
 	
 	
