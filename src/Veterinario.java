@@ -255,10 +255,10 @@ public class Veterinario {
 	}
 	
 	/*
-	 ######################### Exclui Veterinário Cadastrado por CRMV:#########################
+	 ######################### Excluir Veterinário Cadastrado por CRMV:#########################
 	 */
 	
-	public void excluiVeterinarioCadastrado(int crmv) throws IOException{
+	public void excluirVeterinarioCadastrado(int crmv) throws IOException{
 		ArrayList<String> ListaVeterinarios= new ArrayList<>();
 		
 		//Verificar se o crmv do veterinário está cadastrado ( caso encontre, flag ==1, senão flag ==0):
