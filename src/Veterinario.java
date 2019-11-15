@@ -101,6 +101,7 @@ public class Veterinario {
 		file.close();
 		
 		//Retornando o ArrayList preenchido;
+		
 		return veterinarios;
 	
 	}
@@ -120,7 +121,7 @@ public class Veterinario {
 		
 		//Cria um array simples para armazenar os dados de um único veterinário cadastrado:
 		String arrayVeterinario[] = new String[3]; 
-		int flag = 0;
+		int flag = 1;
 		while(flag < total) {
 			
 			//Percorre o ArrayList e armazena os dados do veterinário atual 
@@ -128,7 +129,6 @@ public class Veterinario {
 			
 			//Quebra a string de dados
 			arrayVeterinario = veterinario.split(";");
-			
 			//Verifica se o nome buscado é igual ao nome cadastrado
 			int crmvCarregado = Integer.parseInt(arrayVeterinario[0]);
 			if( crmvCarregado == crmv) {
@@ -148,67 +148,25 @@ public class Veterinario {
 	 ######################### Buscar Veterinario Cadastrado pelo Nome:#########################
 	 */
 	
-	public ArrayList<String> buscaNome(String nome) throws IOException{
-		
-		//Cria um ArrayList e o preenche com o retorno do método listarVeterinarios():
-		ArrayList<String> veterinarios= new ArrayList<>();
-		ArrayList<String> encontrados = new ArrayList<>();
-		veterinarios = listarVeterinarios();
-		
-		//Captura o tamanho do ArrayList criado:
-		int total = veterinarios.size();
-		
-		//Cria um array simples para armazenar os dados de um único veterinário cadastrado:
-		String arrayVeterinario[] = new String[3]; 
-		int flag = 0;
-		while(flag < total) {
-			
-			//Percorre o ArrayList e armazena os dados do veterinário atual 
-			String veterinario = veterinarios.get(flag);
-			
-			//Quebra a string de dados
-			arrayVeterinario = veterinario.split(";");
-			
-			//Verifica se o nome buscado é igual ao nome cadastrado
-			String nomeCarregado = arrayVeterinario[1];
-			
-			if( nomeCarregado.equals(nome)) {
-				
-				//Se o nome verificado for igual, Salva a string de dados no Array
-				encontrados.add(veterinarios.get(flag));
-			}else {
-				flag++;
-			}
-		}
-		if(encontrados.size()!=0) {
-			return encontrados;			
-		}else {
-			//Se o nome não for encontrado retorna nulo:
-			return null;
-		}
-		
-	}
-	
 	/*
 	 ######################### Atualizar Veterinário Cadastrado por CRMV:#########################
 	 */
 	
 	public void editarVeterinarioCadastrado(int crmvBusca, int novoCrmv, String nome, String especialidade) throws IOException{
 		
-		ArrayList<String> ListaVeterinarios= new ArrayList<>();
+		ArrayList<String> ListaVeterinarios = new ArrayList<>();
 		
-		//Verificar se o crmv do veterinário está cadastrado ( caso encontre, flag ==1, senão flag ==0):
+		//Verificar se o crmv do veterinário está cadastrado ( caso encontre, flag ==0, senão flag ==-1):
 		int flag = 0;
-		//Implementando verificação dentro do try/catch do metodo buscaCrmv():
-		if(buscaCrmv(crmvBusca) != null) {
-			flag = 1;
+
+		if(buscaCrmv(crmvBusca) == null) {
+			flag = -1;
 		}else {
 			flag =0;
 		}
-		//Fim do Try/Catch
 		
 		//Se o CRMV foi encontrado, lista os veterinários cadastrados:
-		if(flag == 0) {
+		if(flag == -1) {
 			System.out.println("Veterinário não encontrado. O CRMV digitado não está cadastrado.\n");
 		}else {
 			ListaVeterinarios=listarVeterinarios();
@@ -217,24 +175,24 @@ public class Veterinario {
 			//Iterando sobre a lista copiada do arquivo para realizar alteração:
 			//Cria um array simples para armazenar os dados de um único veterinário cadastrado:
 			String arrayVeterinario[] = new String[3]; 
-			int indiceDoArray = 0;
 			int total = ListaVeterinarios.size();
-			while(indiceDoArray < total) {
+			while(flag < total) {
 				
 				//Percorre o ArrayList e armazena os dados do veterinário atual 
-				String veterinario = ListaVeterinarios.get(indiceDoArray);
+				String veterinario = ListaVeterinarios.get(flag);
 				
 				//Quebra a string de dados
 				arrayVeterinario = veterinario.split(";");
+				System.out.println(arrayVeterinario[0]);
 				
 				//Verifica se o nome buscado é igual ao nome cadastrado
 				int crmvCarregado = Integer.parseInt(arrayVeterinario[0]);
 				if( crmvCarregado == crmv) {
 					
 					//Se o crmv verificado for igual, remove o indice do veterinário cadastrado:
-					ListaVeterinarios.remove(indiceDoArray);				
+					ListaVeterinarios.remove(flag);				
 				}else {
-					indiceDoArray++;
+					flag++;
 				}
 			}
 			//Cria novo objeto funcionario com os novos dados:
