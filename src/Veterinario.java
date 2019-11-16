@@ -60,9 +60,8 @@ public class Veterinario {
 		
 		//Criando o ArrayList:
 		ArrayList<Object> veterinarios = new ArrayList<>();
-		
 		//Abrindo arquivo onde será salva a lista de veterinários:
-		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", true);
+		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
 		PrintWriter writer = new PrintWriter(file);
 		
 		//Adicionando Objeto à lista de cadastro:
@@ -114,14 +113,14 @@ public class Veterinario {
 		
 		//Cria um ArrayList e o preenche com o retorno do método listarVeterinarios():
 		ArrayList<String> veterinarios= new ArrayList<>();
-		veterinarios = listarVeterinarios();
+		veterinarios=listarVeterinarios();
 		
 		//Captura o tamanho do ArrayList criado:
 		int total = veterinarios.size();
 		
 		//Cria um array simples para armazenar os dados de um único veterinário cadastrado:
 		String arrayVeterinario[] = new String[3]; 
-		int flag = 1;
+		int flag = 0;
 		while(flag < total) {
 			
 			//Percorre o ArrayList e armazena os dados do veterinário atual 
@@ -175,5 +174,32 @@ public class Veterinario {
 	 */
 	
 	public void excluirVeterinarioCadastrado(int crmv) throws IOException{
+		//Criar ArrayList para receber os dados do arquivo:
+		ArrayList<String> listaDeVeterinarios = new ArrayList<>();
+		
+		//receber os dados do arquivo na ArrayList:
+		listaDeVeterinarios=listarVeterinarios();
+		int indiceARemover = -1;
+		int index=0;
+		//Iterando lista:
+		for(String iterador: listaDeVeterinarios) {
+			if(iterador == buscaCrmv(crmv)) {
+				indiceARemover=index;
+				break;
+			}
+			index++;
+		}
+		if(indiceARemover!=-1) {
+			listaDeVeterinarios.remove(indiceARemover);
+		}
+		
+		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
+		PrintWriter writer = new PrintWriter(file);
+		for(String iterador: listaDeVeterinarios) {
+			writer.println("["+iterador+"]");
+		}
+		
+		file.close();
+	}
 		
 }
