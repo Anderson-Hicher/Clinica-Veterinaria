@@ -119,18 +119,15 @@ public class Veterinario {
 		int total = veterinarios.size();
 		
 		//Cria um array simples para armazenar os dados de um único veterinário cadastrado:
-		String arrayVeterinario[] = new String[3]; 
+		
 		int flag = 0;
 		while(flag < total) {
-			
 			//Percorre o ArrayList e armazena os dados do veterinário atual 
 			String veterinario = veterinarios.get(flag);
-			
 			//Quebra a string de dados
-			arrayVeterinario = veterinario.split(";");
+			String arrayVeterinario[] = veterinario.split(";"); 
 			//Verifica se o nome buscado é igual ao nome cadastrado
-			int crmvCarregado = Integer.parseInt(arrayVeterinario[0]);
-			if( crmvCarregado == crmv) {
+			if( Integer.parseInt(arrayVeterinario[0]) == crmv) {
 				//Se o nome verificado for igual, retorna toda a string de dados
 				return veterinario;
 			}else {
@@ -176,16 +173,23 @@ public class Veterinario {
 		//Criar ArrayList para receber os dados do arquivo:
 		ArrayList<String> listaDeVeterinarios = new ArrayList<>();
 		
+		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
+		PrintWriter writer = new PrintWriter(file);
+		
 		//receber os dados do arquivo na ArrayList:
 		listaDeVeterinarios=listarVeterinarios();
 		//Iterando lista:
+		int flag = 0;
 		for(String iterador: listaDeVeterinarios) {
-			if(buscaCrmv(crmv) != iterador) {
-				FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
-				PrintWriter writer = new PrintWriter(file);
+			//Percorre o ArrayList e armazena os dados do veterinário atual 
+			String veterinario = listaDeVeterinarios.get(flag);
+			//Quebra a string de dados
+			String arrayVeterinario[] = veterinario.split(";"); 
+			if(Integer.toString(crmv) != arrayVeterinario[0]) {
 				writer.println("["+iterador+"]");
 				file.close();
 			}
+			flag++;
 		}
 	}
 		
