@@ -131,20 +131,20 @@ public class Paciente {
 	 ######################### Listar pacientes cadastrados: #########################
 	 */
 	
-	public ArrayList<String> listarVeterinarios() throws IOException{
+	public ArrayList<String> listarPacientes() throws IOException{
 		
 		//Abrindo arquivo para leitura:
-		FileReader file = new FileReader("ListaDeVeterinarios.txt");
+		FileReader file = new FileReader("ListaDePacientes.txt");
 		BufferedReader reader = new BufferedReader(file);
 		
 		//Criando ArrayList para manter salvo os dados do arquivo:
-		ArrayList<String> veterinarios = new ArrayList<>();
+		ArrayList<String> pacientes = new ArrayList<>();
 		
 		//Lendo dados do arquivo e salvando-os na ArrayList:
 		String vetor =reader.readLine();
 		while(vetor != null){
 			String linha = vetor.substring(1, vetor.length()-1);
-            veterinarios.add(linha);
+            pacientes.add(linha);
             vetor = reader.readLine();
         }
         
@@ -153,7 +153,7 @@ public class Paciente {
 		
 		//Retornando o ArrayList preenchido;
 		
-		return veterinarios;
+		return pacientes;
 	
 	}
 	
