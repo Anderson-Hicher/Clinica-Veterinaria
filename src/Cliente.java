@@ -148,4 +148,30 @@ public class Cliente {
 	}
 	
 	
+	/*
+	 * ############ Atualizar cliente cadastrado por cpf: ##############
+	 */
+	
+	public void editarClienteCadastrado(String cpfBuscado, String novoCpf, String nome, String endereco, String telefone) throws IOException{
+
+		//Verificar se o cpf do paciente está cadastrado ( caso encontre, flag ==0, senão flag ==-1):
+		int flag = 0;
+		if(buscaCpf(buscaCpf(cpfBuscado)) == null) {
+			flag = 1;
+		}else {
+			flag =0;
+		}
+		
+		//Se o cpf foi encontrado, lista os clientes anteriormente cadastrados:
+		if(flag == 1) {
+			System.out.println("Paciente não encontrado. O CPF digitado não está cadastrado.\n");
+		}else{
+			excluirPacienteCadastrado(cpfBuscado);
+		}
+		paciente pacienteEditado = new paciente(novoCpf, nome, endereco, telefone);
+		cadastroVeterinario(veterinarioEditado);			
+		
+		
+	}
+	
 }
