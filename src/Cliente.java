@@ -117,27 +117,27 @@ public class Cliente {
 	/*
 	 * ############# Buscar clientes por meio do Cpf: ############
 	 */
-	public String buscaCpf(int crmv) throws IOException{
+	public String buscaCpf(String cpf) throws IOException{
 		
-		//Cria um ArrayList e o preenche com o retorno do método listarVeterinarios():
-		ArrayList<String> veterinarios= new ArrayList<>();
-		veterinarios=listarVeterinarios();
+		//Cria um ArrayList e o preenche com o retorno do método listarClientes():
+		ArrayList<String> clientes= new ArrayList<>();
+		clientes=listarClientes();
 		
 		//Captura o tamanho do ArrayList criado:
-		int total = veterinarios.size();
+		int total = clientes.size();
 		
-		//Cria um array simples para armazenar os dados de um único veterinário cadastrado:
+		//Cria um array simples para armazenar os dados de um único cliente cadastrado:
 		
 		int flag = 0;
 		while(flag < total) {
 			//Percorre o ArrayList e armazena os dados do veterinário atual 
-			String veterinario = veterinarios.get(flag);
+			String cliente = clientes.get(flag);
 			//Quebra a string de dados
-			String arrayVeterinario[] = veterinario.split(";"); 
+			String arrayCliente[] = cliente.split(";"); 
 			//Verifica se o nome buscado é igual ao nome cadastrado
-			if( Integer.parseInt(arrayVeterinario[0]) == crmv) {
+			if( cpf.equals(arrayCliente[0])) {
 				//Se o nome verificado for igual, retorna toda a string de dados
-				return veterinario;
+				return cliente;
 			}else {
 				flag++;
 			}
