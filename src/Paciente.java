@@ -223,23 +223,24 @@ public class Paciente {
 	 ######################### Excluir Paciente Cadastrado por Id:#########################
 	 */
 	
-	public void excluirVeterinarioCadastrado(int crmv) throws IOException{
+	public void excluirPacienteCadastrado(int id) throws IOException{
 		//Criar ArrayList para receber os dados do arquivo:
-		ArrayList<String> listaDeVeterinarios = new ArrayList<>();
+		ArrayList<String> listaDePacientes = new ArrayList<>();
 		
-		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
+		FileWriter file = new FileWriter("ListaDePacientes.txt", false);
 		PrintWriter writer = new PrintWriter(file);
 		
 		//receber os dados do arquivo na ArrayList:
-		listaDeVeterinarios=listarVeterinarios();
+		listaDePacientes=listarPacientes();
 		//Iterando lista:
 		int flag = 0;
-		for(String iterador: listaDeVeterinarios) {
-			//Percorre o ArrayList e armazena os dados do veterinário atual 
-			String veterinario = listaDeVeterinarios.get(flag);
+		for(String iterador: listaDePacientes) {
+			
+			//Percorre o ArrayList e armazena os dados do paciente atual 
+			String paciente = listaDePacientes.get(flag);
 			//Quebra a string de dados
-			String arrayVeterinario[] = veterinario.split(";"); 
-			if(Integer.toString(crmv) != arrayVeterinario[0]) {
+			String arrayPaciente[] = paciente.split(";"); 
+			if(Integer.toString(id) != arrayPaciente[0]) {
 				writer.println("["+iterador+"]");
 				file.close();
 			}
