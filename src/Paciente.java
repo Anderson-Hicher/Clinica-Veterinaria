@@ -157,6 +157,41 @@ public class Paciente {
 	
 	}
 	
+	/*
+	 ######################### Buscar Paciente Cadastrado pelo Id:#########################
+	 */
+	
+	public String buscaCrmv(int crmv) throws IOException{
+		
+		//Cria um ArrayList e o preenche com o retorno do método listarVeterinarios():
+		ArrayList<String> veterinarios= new ArrayList<>();
+		veterinarios=listarVeterinarios();
+		
+		//Captura o tamanho do ArrayList criado:
+		int total = veterinarios.size();
+		
+		//Cria um array simples para armazenar os dados de um único veterinário cadastrado:
+		
+		int flag = 0;
+		while(flag < total) {
+			//Percorre o ArrayList e armazena os dados do veterinário atual 
+			String veterinario = veterinarios.get(flag);
+			//Quebra a string de dados
+			String arrayVeterinario[] = veterinario.split(";"); 
+			//Verifica se o nome buscado é igual ao nome cadastrado
+			if( Integer.parseInt(arrayVeterinario[0]) == crmv) {
+				//Se o nome verificado for igual, retorna toda a string de dados
+				return veterinario;
+			}else {
+				flag++;
+			}
+		}
+		
+		//Se o nome não for encontrado retorna nulo:
+		return null;
+	}
+	
+	
 	
 	
 	/*
