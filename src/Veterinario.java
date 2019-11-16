@@ -61,7 +61,7 @@ public class Veterinario {
 		//Criando o ArrayList:
 		ArrayList<Object> veterinarios = new ArrayList<>();
 		//Abrindo arquivo onde será salva a lista de veterinários:
-		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
+		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", true);
 		PrintWriter writer = new PrintWriter(file);
 		
 		//Adicionando Objeto à lista de cadastro:
@@ -131,7 +131,6 @@ public class Veterinario {
 			//Verifica se o nome buscado é igual ao nome cadastrado
 			int crmvCarregado = Integer.parseInt(arrayVeterinario[0]);
 			if( crmvCarregado == crmv) {
-				
 				//Se o nome verificado for igual, retorna toda a string de dados
 				return veterinario;
 			}else {
@@ -140,7 +139,7 @@ public class Veterinario {
 		}
 		
 		//Se o nome não for encontrado retorna nulo:
-		return "null";
+		return null;
 	}
 	
 	/*
@@ -151,7 +150,7 @@ public class Veterinario {
 
 		//Verificar se o crmv do veterinário está cadastrado ( caso encontre, flag ==0, senão flag ==-1):
 		int flag = 0;
-		if(buscaCrmv(crmvBusca).equals("null")) {
+		if(buscaCrmv(crmvBusca) == null) {
 			flag = 1;
 		}else {
 			flag =0;
@@ -179,27 +178,16 @@ public class Veterinario {
 		
 		//receber os dados do arquivo na ArrayList:
 		listaDeVeterinarios=listarVeterinarios();
-		int indiceARemover = -1;
-		int index=0;
 		//Iterando lista:
 		for(String iterador: listaDeVeterinarios) {
-			if(iterador == buscaCrmv(crmv)) {
-				indiceARemover=index;
-				break;
+			if(buscaCrmv(crmv) != iterador) {
+				FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
+				PrintWriter writer = new PrintWriter(file);
+				writer.println("["+iterador+"]");
+				file.close();
 			}
-			index++;
 		}
-		if(indiceARemover!=-1) {
-			listaDeVeterinarios.remove(indiceARemover);
-		}
-		
-		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
-		PrintWriter writer = new PrintWriter(file);
-		for(String iterador: listaDeVeterinarios) {
-			writer.println("["+iterador+"]");
-		}
-		
-		file.close();
 	}
 		
 }
+
