@@ -29,8 +29,9 @@ public class Paciente {
 	public Paciente() {}
 
 	//construtor da classe:
-	public Paciente(String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro) {
-		this.id = iteradorAutomaticoDeIds();
+	public Paciente(int id, String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro) {
+		//this.id = iteradorAutomaticoDeIds();
+		this.id=id;
 		this.nome = nome;
 		this.sexo = sexo;
 		this.raca = raca;
@@ -47,6 +48,10 @@ public class Paciente {
 	
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -147,6 +152,7 @@ public class Paciente {
             pacientes.add(linha);
             vetor = reader.readLine();
         }
+		
         
         //Fechando arquivo utilizado:
 		file.close();
@@ -196,14 +202,13 @@ public class Paciente {
 	 ######################### Atualizar Paciente Cadastrado por Id:#########################
 	 */
 	
-	public void editarPacienteCadastrado(int idBusca, String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro) throws IOException{
-
-		//Verificar se o Id do paciente está cadastrado ( caso encontre, flag ==0, senão flag ==-1):
+	public void editarPacienteCadastrado(int idBusca, int novoId, String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro) throws IOException{
+		
+		Paciente pacienteEditado = new Paciente(novoId, nome, sexo, raca, peso, idade, cpfDono, dataCadastro);
+		//Verificar se o Id do paciente está cadastrado ( caso encontre, flag ==0, senão flag ==1):
 		int flag = 0;
 		if(buscaId(idBusca) == null) {
 			flag = 1;
-		}else {
-			flag =0;
 		}
 		
 		//Se o Id foi encontrado, lista os pacientes cadastrados:
@@ -211,9 +216,8 @@ public class Paciente {
 			System.out.println("Paciente não encontrado. O Id digitado não está cadastrado.\n");
 		}else{
 			excluirPacienteCadastrado(idBusca);
-		}
-		Paciente pacienteEditado = new Paciente(nome, sexo, raca, peso, idade, cpfDono, dataCadastro);
-		cadastroPaciente(pacienteEditado);			
+			cadastroPaciente(pacienteEditado);
+		}			
 		
 	}
 	
@@ -226,30 +230,30 @@ public class Paciente {
 	public void excluirPacienteCadastrado(int id) throws IOException{
 		//Criar ArrayList para receber os dados do arquivo:
 		ArrayList<String> listaDePacientes = new ArrayList<>();
+		listaDePacientes=listarPacientes();
+		
 		
 		FileWriter file = new FileWriter("ListaDePacientes.txt", false);
 		PrintWriter writer = new PrintWriter(file);
 		
 		//receber os dados do arquivo na ArrayList:
-		listaDePacientes=listarPacientes();
 		//Iterando lista:
 		int flag = 0;
-		for(String iterador: listaDePacientes) {
-	
+		for(flag = 0; flag < listaDePacientes.size();flag ++) {
+			
 			//Percorre o ArrayList e armazena os dados do paciente atual 
 			String paciente = listaDePacientes.get(flag);
 			//Quebra a string de dados
 			String arrayPaciente[] = paciente.split(";"); 
-			if(Integer.toString(id) != arrayPaciente[0]) {
-				writer.println("["+iterador+"]");
-				file.close();
+			if(id != Integer.parseInt(arrayPaciente[0])){
+				writer.println("["+arrayPaciente[0]+";"+arrayPaciente[1]+";"+arrayPaciente[2]+";"+arrayPaciente[3]+";"+arrayPaciente[4]+";"+arrayPaciente[5]+";"+arrayPaciente[6]+";"+arrayPaciente[7]+"]");
 			}
-			flag++;
+			
 		}
+		file.close();
 	}
 	
-	
-	/*
+	 /*
 	 ######################### Iterador automático de Id's do paciente: #########################
 	 */
 	
