@@ -145,70 +145,28 @@ public class Veterinario {
 	}
 	
 	/*
-	 ######################### Buscar Veterinario Cadastrado pelo Nome:#########################
-	 */
-	
-	/*
 	 ######################### Atualizar Veterinário Cadastrado por CRMV:#########################
 	 */
 	
 	public void editarVeterinarioCadastrado(int crmvBusca, int novoCrmv, String nome, String especialidade) throws IOException{
-		
-		ArrayList<String> ListaVeterinarios = new ArrayList<>();
-		
+
 		//Verificar se o crmv do veterinário está cadastrado ( caso encontre, flag ==0, senão flag ==-1):
 		int flag = 0;
-
 		if(buscaCrmv(crmvBusca) == null) {
-			flag = -1;
+			flag = 1;
 		}else {
 			flag =0;
 		}
 		
 		//Se o CRMV foi encontrado, lista os veterinários cadastrados:
-		if(flag == -1) {
+		if(flag == 1) {
 			System.out.println("Veterinário não encontrado. O CRMV digitado não está cadastrado.\n");
-		}else {
-			ListaVeterinarios=listarVeterinarios();
-			
-			
-			//Iterando sobre a lista copiada do arquivo para realizar alteração:
-			//Cria um array simples para armazenar os dados de um único veterinário cadastrado:
-			String arrayVeterinario[] = new String[3]; 
-			int total = ListaVeterinarios.size();
-			while(flag < total) {
-				
-				//Percorre o ArrayList e armazena os dados do veterinário atual 
-				String veterinario = ListaVeterinarios.get(flag);
-				
-				//Quebra a string de dados
-				arrayVeterinario = veterinario.split(";");
-				System.out.println(arrayVeterinario[0]);
-				
-				//Verifica se o nome buscado é igual ao nome cadastrado
-				int crmvCarregado = Integer.parseInt(arrayVeterinario[0]);
-				if( crmvCarregado == crmv) {
-					
-					//Se o crmv verificado for igual, remove o indice do veterinário cadastrado:
-					ListaVeterinarios.remove(flag);				
-				}else {
-					flag++;
-				}
-			}
-			//Cria novo objeto funcionario com os novos dados:
-			Veterinario veterinarioEditado = new Veterinario(novoCrmv,nome,especialidade);
-			
-			//Adicionando Objeto à lista de cadastro:
-			ListaVeterinarios.add(veterinarioEditado.getCrmv()+";"+veterinarioEditado.getNome()+";"+veterinarioEditado.getEspecialidade());
-			
-			//Abre e reseta o conteudo de ListaDeVeterinarios.txt, salvando nova lista de Veterinários:
-			FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
-			PrintWriter writer = new PrintWriter(file);
-			writer.println(ListaVeterinarios);
-			writer.println(veterinarioEditado);
-			
-			file.close();			
+		}else{
+			excluirVeterinarioCadastrado(crmvBusca);
 		}
+		Veterinario veterinarioEditado = new Veterinario(novoCrmv, nome, especialidade);
+		cadastroVeterinario(veterinarioEditado);			
+		
 		
 	}
 	
@@ -221,14 +179,6 @@ public class Veterinario {
 		
 		//Verificar se o crmv do veterinário está cadastrado ( caso encontre, flag ==1, senão flag ==0):
 		int flag = 0;
-		//Implementando verificação dentro do try/catch do metodo buscaCrmv():
-		if(buscaCrmv(crmv) != null) {
-			flag = 1;
-		}else {
-			flag =0;
-		}
-		
-		//Fim do Try/Catch
 		
 		//Se o CRMV foi encontrado, lista os veterinários cadastrados:
 		if(flag == 0) {
