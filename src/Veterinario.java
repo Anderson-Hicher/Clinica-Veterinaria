@@ -140,7 +140,7 @@ public class Veterinario {
 		}
 		
 		//Se o nome não for encontrado retorna nulo:
-		return null;
+		return "null";
 	}
 	
 	/*
@@ -151,7 +151,7 @@ public class Veterinario {
 
 		//Verificar se o crmv do veterinário está cadastrado ( caso encontre, flag ==0, senão flag ==-1):
 		int flag = 0;
-		if(buscaCrmv(crmvBusca) == null) {
+		if(buscaCrmv(crmvBusca).equals("null")) {
 			flag = 1;
 		}else {
 			flag =0;
