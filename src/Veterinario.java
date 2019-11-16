@@ -172,17 +172,19 @@ public class Veterinario {
 	public void excluirVeterinarioCadastrado(int crmv) throws IOException{
 		//Criar ArrayList para receber os dados do arquivo:
 		ArrayList<String> listaDeVeterinarios = new ArrayList<>();
+		listaDeVeterinarios=listarVeterinarios();
+		
 		
 		FileWriter file = new FileWriter("ListaDeVeterinarios.txt", false);
 		PrintWriter writer = new PrintWriter(file);
 		
 		//receber os dados do arquivo na ArrayList:
-		listaDeVeterinarios=listarVeterinarios();
 		//Iterando lista:
 		int flag = 0;
 		for(String iterador: listaDeVeterinarios) {
 			//Percorre o ArrayList e armazena os dados do veterinário atual 
 			String veterinario = listaDeVeterinarios.get(flag);
+		
 			//Quebra a string de dados
 			String arrayVeterinario[] = veterinario.split(";"); 
 			if(Integer.toString(crmv) != arrayVeterinario[0]) {
