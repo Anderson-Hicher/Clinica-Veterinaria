@@ -196,24 +196,24 @@ public class Paciente {
 	 ######################### Atualizar Paciente Cadastrado por Id:#########################
 	 */
 	
-	public void editarVeterinarioCadastrado(int crmvBusca, int novoCrmv, String nome, String especialidade) throws IOException{
+	public void editarPacienteCadastrado(int idBusca, String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro) throws IOException{
 
-		//Verificar se o crmv do veterinário está cadastrado ( caso encontre, flag ==0, senão flag ==-1):
+		//Verificar se o Id do paciente está cadastrado ( caso encontre, flag ==0, senão flag ==-1):
 		int flag = 0;
-		if(buscaCrmv(crmvBusca) == null) {
+		if(buscaId(idBusca) == null) {
 			flag = 1;
 		}else {
 			flag =0;
 		}
 		
-		//Se o CRMV foi encontrado, lista os veterinários cadastrados:
+		//Se o Id foi encontrado, lista os pacientes cadastrados:
 		if(flag == 1) {
-			System.out.println("Veterinário não encontrado. O CRMV digitado não está cadastrado.\n");
+			System.out.println("Paciente não encontrado. O Id digitado não está cadastrado.\n");
 		}else{
-			excluirVeterinarioCadastrado(crmvBusca);
+			excluirPacienteCadastrado(idBusca);
 		}
-		Veterinario veterinarioEditado = new Veterinario(novoCrmv, nome, especialidade);
-		cadastroVeterinario(veterinarioEditado);			
+		Paciente pacienteEditado = new Paciente(nome, sexo, raca, peso, idade, cpfDono, dataCadastro);
+		cadastroPaciente(pacienteEditado);			
 		
 	}
 	
