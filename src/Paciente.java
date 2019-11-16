@@ -235,7 +235,7 @@ public class Paciente {
 		//Iterando lista:
 		int flag = 0;
 		for(String iterador: listaDePacientes) {
-			
+	
 			//Percorre o ArrayList e armazena os dados do paciente atual 
 			String paciente = listaDePacientes.get(flag);
 			//Quebra a string de dados
@@ -254,7 +254,7 @@ public class Paciente {
 	 */
 	
 	public int iteradorAutomaticoDeIds(){
-		int id = -1;
+		int id = 1;
 		try {
 			id = listarPacientes().size();
 			id++;
