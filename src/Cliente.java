@@ -88,20 +88,20 @@ public class Cliente {
 	 * #################### Listar clientes cadastrados: #################
 	 */
 	
-	public ArrayList<String> listarVeterinarios() throws IOException{
+	public ArrayList<String> listarClientes() throws IOException{
 		
 		//Abrindo arquivo para leitura:
-		FileReader file = new FileReader("ListaDeVeterinarios.txt");
+		FileReader file = new FileReader("ListaDeClientes.txt");
 		BufferedReader reader = new BufferedReader(file);
 		
 		//Criando ArrayList para manter salvo os dados do arquivo:
-		ArrayList<String> veterinarios = new ArrayList<>();
+		ArrayList<String> clientes = new ArrayList<>();
 		
 		//Lendo dados do arquivo e salvando-os na ArrayList:
 		String vetor =reader.readLine();
 		while(vetor != null){
 			String linha = vetor.substring(1, vetor.length()-1);
-            veterinarios.add(linha);
+            clientes.add(linha);
             vetor = reader.readLine();
         }
         
@@ -110,8 +110,41 @@ public class Cliente {
 		
 		//Retornando o ArrayList preenchido;
 		
-		return veterinarios;
+		return clientes;
 	
+	}
+	
+	/*
+	 * ############# Buscar clientes por meio do Cpf: ############
+	 */
+	public String buscaCpf(int crmv) throws IOException{
+		
+		//Cria um ArrayList e o preenche com o retorno do método listarVeterinarios():
+		ArrayList<String> veterinarios= new ArrayList<>();
+		veterinarios=listarVeterinarios();
+		
+		//Captura o tamanho do ArrayList criado:
+		int total = veterinarios.size();
+		
+		//Cria um array simples para armazenar os dados de um único veterinário cadastrado:
+		
+		int flag = 0;
+		while(flag < total) {
+			//Percorre o ArrayList e armazena os dados do veterinário atual 
+			String veterinario = veterinarios.get(flag);
+			//Quebra a string de dados
+			String arrayVeterinario[] = veterinario.split(";"); 
+			//Verifica se o nome buscado é igual ao nome cadastrado
+			if( Integer.parseInt(arrayVeterinario[0]) == crmv) {
+				//Se o nome verificado for igual, retorna toda a string de dados
+				return veterinario;
+			}else {
+				flag++;
+			}
+		}
+		
+		//Se o nome não for encontrado retorna nulo:
+		return null;
 	}
 	
 	
