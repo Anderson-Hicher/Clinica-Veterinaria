@@ -161,33 +161,33 @@ public class Paciente {
 	 ######################### Buscar Paciente Cadastrado pelo Id:#########################
 	 */
 	
-	public String buscaCrmv(int crmv) throws IOException{
+	public String buscaId(int id) throws IOException{
 		
-		//Cria um ArrayList e o preenche com o retorno do método listarVeterinarios():
-		ArrayList<String> veterinarios= new ArrayList<>();
-		veterinarios=listarVeterinarios();
+		//Cria um ArrayList e o preenche com o retorno do método listarPacientes():
+		ArrayList<String> pacientes= new ArrayList<>();
+		pacientes=listarPacientes();
 		
 		//Captura o tamanho do ArrayList criado:
-		int total = veterinarios.size();
+		int total = pacientes.size();
 		
-		//Cria um array simples para armazenar os dados de um único veterinário cadastrado:
+		//Cria um array simples para armazenar os dados de um único paciente cadastrado:
 		
 		int flag = 0;
 		while(flag < total) {
-			//Percorre o ArrayList e armazena os dados do veterinário atual 
-			String veterinario = veterinarios.get(flag);
+			//Percorre o ArrayList e armazena os dados do paciente atual 
+			String paciente = pacientes.get(flag);
 			//Quebra a string de dados
-			String arrayVeterinario[] = veterinario.split(";"); 
-			//Verifica se o nome buscado é igual ao nome cadastrado
-			if( Integer.parseInt(arrayVeterinario[0]) == crmv) {
-				//Se o nome verificado for igual, retorna toda a string de dados
-				return veterinario;
+			String arrayPaciente[] = paciente.split(";"); 
+			//Verifica se o id buscado é igual ao nome cadastrado
+			if( Integer.parseInt(arrayPaciente[0]) == id) {
+				//Se o id verificado for igual, retorna toda a string de dados
+				return paciente;
 			}else {
 				flag++;
 			}
 		}
 		
-		//Se o nome não for encontrado retorna nulo:
+		//Se o id não for encontrado retorna nulo:
 		return null;
 	}
 	
