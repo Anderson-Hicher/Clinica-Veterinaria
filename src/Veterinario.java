@@ -182,17 +182,18 @@ public class Veterinario {
 		//Iterando lista:
 		int flag = 0;
 		for(String iterador: listaDeVeterinarios) {
+			
 			//Percorre o ArrayList e armazena os dados do veterinário atual 
 			String veterinario = listaDeVeterinarios.get(flag);
-		
 			//Quebra a string de dados
 			String arrayVeterinario[] = veterinario.split(";"); 
-			if(Integer.toString(crmv) != arrayVeterinario[0]) {
+			if(crmv != Integer.parseInt(arrayVeterinario[0])) {
 				writer.println("["+iterador+"]");
-				file.close();
+				
 			}
 			flag++;
 		}
+		file.close();
 	}
 		
 }

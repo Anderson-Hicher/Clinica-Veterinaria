@@ -245,7 +245,7 @@ public class Paciente {
 			String paciente = listaDePacientes.get(flag);
 			//Quebra a string de dados
 			String arrayPaciente[] = paciente.split(";"); 
-			if(id != Integer.parseInt(arrayPaciente[0])){
+			if(id == Integer.parseInt(arrayPaciente[0])){
 				writer.println("["+arrayPaciente[0]+";"+arrayPaciente[1]+";"+arrayPaciente[2]+";"+arrayPaciente[3]+";"+arrayPaciente[4]+";"+arrayPaciente[5]+";"+arrayPaciente[6]+";"+arrayPaciente[7]+"]");
 			}
 			
