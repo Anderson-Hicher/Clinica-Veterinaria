@@ -170,8 +170,37 @@ public class Cliente {
 		}
 		Cliente clienteEditado = new Cliente(novoCpf, nome, endereco, telefone);
 		cadastroCliente(clienteEditado);			
-		
-		
+				
 	}
 	
+	/*
+	 * ################### Remover Cliente cadastrado pelo Id: #############
+	 */
+	
+
+	public void excluirClienteCadastrado(int id) throws IOException{
+		//Criar ArrayList para receber os dados do arquivo:
+		ArrayList<String> listaDePacientes = new ArrayList<>();
+		listaDePacientes=listarClientes();
+		
+		
+		FileWriter file = new FileWriter("ListaDePacientes.txt", false);
+		PrintWriter writer = new PrintWriter(file);
+		
+		//receber os dados do arquivo na ArrayList:
+		//Iterando lista:
+		int flag = 0;
+		for(flag = 0; flag < listaDePacientes.size();flag ++) {
+			
+			//Percorre o ArrayList e armazena os dados do paciente atual 
+			String paciente = listaDePacientes.get(flag);
+			//Quebra a string de dados
+			String arrayPaciente[] = paciente.split(";"); 
+			if(id == Integer.parseInt(arrayPaciente[0])){
+				writer.println("["+arrayPaciente[0]+";"+arrayPaciente[1]+";"+arrayPaciente[2]+";"+arrayPaciente[3]+";"+arrayPaciente[4]+";"+arrayPaciente[5]+";"+arrayPaciente[6]+";"+arrayPaciente[7]+"]");
+			}
+			
+		}
+		file.close();
+	}
 }
