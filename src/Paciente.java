@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 
 public class Paciente {
-	private int id;
+	private String id;
 	private String nome;
 	private String sexo;
 	private String raca;
@@ -30,9 +30,9 @@ public class Paciente {
 	public Paciente() {}
 
 	//construtor da classe:
-	public Paciente(int id, String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro) {
+	public Paciente(String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro, String dataNascimento) {
 		//this.id = iteradorAutomaticoDeIds();
-		this.id=id;
+		this.id=geradorId(nome, dataNascimento);
 		this.nome = nome;
 		this.sexo = sexo;
 		this.raca = raca;
@@ -47,13 +47,10 @@ public class Paciente {
 	 #########################Getters and Setters:###########################
 	 */
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getNome() {
 		return nome;
@@ -168,7 +165,7 @@ public class Paciente {
 	 ######################### Buscar Paciente Cadastrado pelo Id:#########################
 	 */
 	
-	public String buscaId(int id) throws IOException{
+	public String buscaId(String id) throws IOException{
 		
 		//Cria um ArrayList e o preenche com o retorno do método listarPacientes():
 		ArrayList<String> pacientes= new ArrayList<>();
@@ -186,7 +183,7 @@ public class Paciente {
 			//Quebra a string de dados
 			String arrayPaciente[] = paciente.split(";"); 
 			//Verifica se o id buscado é igual ao nome cadastrado
-			if( Integer.parseInt(arrayPaciente[0]) == id) {
+			if( arrayPaciente[0].equals(id)) {
 				//Se o id verificado for igual, retorna toda a string de dados
 				return paciente;
 			}else {
@@ -203,9 +200,9 @@ public class Paciente {
 	 ######################### Atualizar Paciente Cadastrado por Id:#########################
 	 */
 	
-	public void editarPacienteCadastrado(int idBusca, int novoId, String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro) throws IOException{
+	public void editarPacienteCadastrado(String idBusca, String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro, String dataNascimento) throws IOException{
 		
-		Paciente pacienteEditado = new Paciente(novoId, nome, sexo, raca, peso, idade, cpfDono, dataCadastro);
+		Paciente pacienteEditado = new Paciente(nome, sexo, raca, peso, idade, cpfDono, dataCadastro, dataNascimento);
 		//Verificar se o Id do paciente está cadastrado ( caso encontre, flag ==0, senão flag ==1):
 		int flag = 0;
 		if(buscaId(idBusca) == null) {
@@ -228,7 +225,7 @@ public class Paciente {
 	 ######################### Excluir Paciente Cadastrado por Id:#########################
 	 */
 	
-	public void excluirPacienteCadastrado(int id) throws IOException{
+	public void excluirPacienteCadastrado(String id) throws IOException{
 		//Criar ArrayList para receber os dados do arquivo:
 		ArrayList<String> listaDePacientes = new ArrayList<>();
 		listaDePacientes=listarPacientes();
@@ -246,8 +243,8 @@ public class Paciente {
 			String paciente = listaDePacientes.get(flag);
 			//Quebra a string de dados
 			String arrayPaciente[] = paciente.split(";"); 
-			if(id == Integer.parseInt(arrayPaciente[0])){
-				writer.println("["+arrayPaciente[0]+";"+arrayPaciente[1]+";"+arrayPaciente[2]+";"+arrayPaciente[3]+";"+arrayPaciente[4]+";"+arrayPaciente[5]+";"+arrayPaciente[6]+";"+arrayPaciente[7]+"]");
+			if(arrayPaciente[0].equals(id)){
+				writer.println("["+arrayPaciente[0]+";"+arrayPaciente[1]+";"+arrayPaciente[2]+";"+arrayPaciente[3]+";"+arrayPaciente[4]+";"+arrayPaciente[5]+";"+arrayPaciente[6]+";"+arrayPaciente[7]+";"+arrayPaciente[8]+"]");
 			}
 			
 		}
@@ -258,7 +255,8 @@ public class Paciente {
 	 ######################### Iterador automático de Id's do paciente: #########################
 	 */
 	
-	public int iteradorAutomaticoDeIds(){
+	public String geradorId(String nomePaciente, String data){
+		String id="";
 		Scanner leia = new Scanner(System.in);
 		boolean valido = true;
 
@@ -293,9 +291,9 @@ public class Paciente {
 			}
 		}
 
-		dia = Integer.parseInt(data.substring(0, 2));
-		mes = Integer.parseInt(data.substring(3, 5));
-		ano = Integer.parseInt(data.substring(6));
+		int dia = Integer.parseInt(data.substring(0, 2));
+		int mes = Integer.parseInt(data.substring(3, 5));
+		int ano = Integer.parseInt(data.substring(6));
 
 		// 1º Dígito
 		id += String.valueOf((dia + mes + ano ) % 10);
@@ -303,7 +301,7 @@ public class Paciente {
 		// 2º Dígito
 		id += String.valueOf((dia * mes * ano) % 10);
 
-		System.out.println(id);
+		return id;
 	}
 
 }
