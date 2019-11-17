@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 
@@ -258,17 +259,51 @@ public class Paciente {
 	 */
 	
 	public int iteradorAutomaticoDeIds(){
-		int id = 1;
-		try {
-			id = listarPacientes().size();
-			id++;
-		} catch (IOException e) {
-			System.out.println("Erro na função de listar parcientes");
-			System.out.println("Informações técnicas do erro: \n" + e.getMessage() );
+		Scanner leia = new Scanner(System.in);
+		boolean valido = true;
+
+		System.out.print("Digite o nome completo do Paciente: ");
+		nomePaciente = leia.nextLine().toUpperCase();
+
+		do {
+			valido = true;
+
+			System.out.print("Digite a data (DD/MM/YYYY): ");
+			data = leia.next();
+
+			if (data.length() != 10) {
+				System.out.println("ERRO: Você não digitou no formato DD/MM/YYYY com 10 caracteres!");
+				valido = false;
+			} else {
+
+				if (data.charAt(2) != '/' && data.charAt(5) != '/') {
+					System.out.println("ERRO: Você não digitou no formato DD/MM/YYYY!");
+					valido = false;
+				}
+			}
+
+		} while (!valido);
+
+		id += Character.toString(nomePaciente.charAt(0)); // codigo += "" +	// nome.charAt(0);
+
+		for (int i = nomePaciente.length() - 1; i >= 0; i--) {
+			if (nomePaciente.charAt(i) == ' ') {
+				id += Character.toString(nomePaciente.charAt(i + 1));
+				break;
+			}
 		}
 
-		return id;
+		dia = Integer.parseInt(data.substring(0, 2));
+		mes = Integer.parseInt(data.substring(3, 5));
+		ano = Integer.parseInt(data.substring(6));
+
+		// 1º Dígito
+		id += String.valueOf((dia + mes + ano ) % 10);
+
+		// 2º Dígito
+		id += String.valueOf((dia * mes * ano) % 10);
+
+		System.out.println(id);
 	}
-	
-	
+
 }
