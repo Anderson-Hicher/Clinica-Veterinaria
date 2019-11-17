@@ -167,10 +167,10 @@ public class Cliente {
 			System.out.println("Cliente não encontrado. O CPF digitado não está cadastrado.\n");
 		}else{
 			excluirClienteCadastrado(cpfBuscado);
+			Cliente clienteEditado = new Cliente(novoCpf, nome, endereco, telefone);
+			cadastroCliente(clienteEditado);	
 		}
-		Cliente clienteEditado = new Cliente(novoCpf, nome, endereco, telefone);
-		cadastroCliente(clienteEditado);			
-				
+		
 	}
 	
 	/*
@@ -178,26 +178,26 @@ public class Cliente {
 	 */
 	
 
-	public void excluirClienteCadastrado(int id) throws IOException{
+	public void excluirClienteCadastrado(String cpf) throws IOException{
 		//Criar ArrayList para receber os dados do arquivo:
-		ArrayList<String> listaDePacientes = new ArrayList<>();
-		listaDePacientes=listarClientes();
+		ArrayList<String> listaDeClientes = new ArrayList<>();
+		listaDeClientes=listarClientes();
 		
 		
-		FileWriter file = new FileWriter("ListaDePacientes.txt", false);
+		FileWriter file = new FileWriter("ListaDeClientes.txt", false);
 		PrintWriter writer = new PrintWriter(file);
 		
 		//receber os dados do arquivo na ArrayList:
 		//Iterando lista:
 		int flag = 0;
-		for(flag = 0; flag < listaDePacientes.size();flag ++) {
+		for(flag = 0; flag < listaDeClientes.size();flag ++) {
 			
-			//Percorre o ArrayList e armazena os dados do paciente atual 
-			String paciente = listaDePacientes.get(flag);
+			//Percorre o ArrayList e armazena os dados do cliente atual 
+			String cliente = listaDeClientes.get(flag);
 			//Quebra a string de dados
-			String arrayPaciente[] = paciente.split(";"); 
-			if(id == Integer.parseInt(arrayPaciente[0])){
-				writer.println("["+arrayPaciente[0]+";"+arrayPaciente[1]+";"+arrayPaciente[2]+";"+arrayPaciente[3]+";"+arrayPaciente[4]+";"+arrayPaciente[5]+";"+arrayPaciente[6]+";"+arrayPaciente[7]+"]");
+			String arrayCliente[] = cliente.split(";"); 
+			if(cpf.equals(arrayCliente[0])){
+				writer.println("["+arrayCliente[0]+";"+arrayCliente[1]+";"+arrayCliente[2]+";"+arrayCliente[3]);
 			}
 			
 		}
