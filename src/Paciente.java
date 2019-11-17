@@ -22,6 +22,7 @@ public class Paciente {
 	private int idade;
 	private String cpfDono;
 	private String dataCadastro;
+	private String dataNascimento;
 	
 	/*
 	 ######################### Construtores: ###########################
@@ -40,6 +41,7 @@ public class Paciente {
 		this.idade = idade;
 		this.cpfDono = cpfDono;
 		this.dataCadastro = dataCadastro;
+		this.dataNascimento = dataNascimento;
 	}
 
 	
@@ -108,6 +110,14 @@ public class Paciente {
 		this.dataCadastro = dataCadastro;
 	}
 	
+	public String getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+	
 	
 	/*
 	 ######################### Cadastro de Paciente: #########################
@@ -121,7 +131,7 @@ public class Paciente {
 		PrintWriter writer = new PrintWriter(file);
 		
 		//Adicionando Objeto à lista de cadastro:
-		pacientes.add(paciente.getId()+";"+paciente.getNome()+";"+paciente.getSexo()+";"+paciente.getRaca()+";"+paciente.getPeso()+";"+paciente.getIdade()+";"+paciente.getCpfDono()+";"+paciente.getDataCadastro());
+		pacientes.add(paciente.getId()+";"+paciente.getNome()+";"+paciente.getSexo()+";"+paciente.getRaca()+";"+paciente.getPeso()+";"+paciente.getIdade()+";"+paciente.getCpfDono()+";"+paciente.getDataCadastro()+";"+paciente.getDataNascimento());
 		
 		//Cadastrando Vetor de pacientes:
 		writer.println(pacientes);
@@ -243,7 +253,7 @@ public class Paciente {
 			String paciente = listaDePacientes.get(flag);
 			//Quebra a string de dados
 			String arrayPaciente[] = paciente.split(";"); 
-			if(arrayPaciente[0].equals(id)){
+			if(!arrayPaciente[0].equals(id)){
 				writer.println("["+arrayPaciente[0]+";"+arrayPaciente[1]+";"+arrayPaciente[2]+";"+arrayPaciente[3]+";"+arrayPaciente[4]+";"+arrayPaciente[5]+";"+arrayPaciente[6]+";"+arrayPaciente[7]+";"+arrayPaciente[8]+"]");
 			}
 			
