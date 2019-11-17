@@ -156,7 +156,7 @@ public class Cliente {
 
 		//Verificar se o cpf do paciente está cadastrado ( caso encontre, flag ==0, senão flag ==-1):
 		int flag = 0;
-		if(buscaCpf(buscaCpf(cpfBuscado)) == null) {
+		if(buscaCpf(cpfBuscado) == null) {
 			flag = 1;
 		}else {
 			flag =0;
@@ -189,14 +189,13 @@ public class Cliente {
 		
 		//receber os dados do arquivo na ArrayList:
 		//Iterando lista:
-		int flag = 0;
-		for(flag = 0; flag < listaDeClientes.size();flag ++) {
+		for(int flag = 0; flag < listaDeClientes.size();flag ++) {
 			
 			//Percorre o ArrayList e armazena os dados do cliente atual 
 			String cliente = listaDeClientes.get(flag);
 			//Quebra a string de dados
 			String arrayCliente[] = cliente.split(";"); 
-			if(cpf.equals(arrayCliente[0])){
+			if(cpf.equals(arrayCliente[0])==false){
 				writer.println("["+arrayCliente[0]+";"+arrayCliente[1]+";"+arrayCliente[2]+";"+arrayCliente[3]);
 			}
 			
