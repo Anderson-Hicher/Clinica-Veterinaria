@@ -164,12 +164,12 @@ public class Cliente {
 		
 		//Se o cpf foi encontrado, lista os clientes anteriormente cadastrados:
 		if(flag == 1) {
-			System.out.println("Paciente não encontrado. O CPF digitado não está cadastrado.\n");
+			System.out.println("Cliente não encontrado. O CPF digitado não está cadastrado.\n");
 		}else{
-			excluirPacienteCadastrado(cpfBuscado);
+			excluirClienteCadastrado(cpfBuscado);
 		}
-		paciente pacienteEditado = new paciente(novoCpf, nome, endereco, telefone);
-		cadastroVeterinario(veterinarioEditado);			
+		Cliente clienteEditado = new Cliente(novoCpf, nome, endereco, telefone);
+		cadastroCliente(clienteEditado);			
 		
 		
 	}
