@@ -413,11 +413,36 @@ public class MenuInicial {
 				 * ################################## Fim do Menu Paciente  ############################
 				 */
 			case 3:
+				/*
+				 * ################################ Inicio do menu Veterinário ##########################
+				 */
+				do {
+					/*
+					 * ######################### Exibindo Menu de clientes: ###########################################
+					 */
+					System.out.println("\n\n\n\n########################################################################");
+					System.out.println("# Você está no menu de Veterinários, Selecione entre as opções abaixo: #");
+					System.out.println("#                                                                      #");
+					System.out.println("#  ___________________________________________________________________ #");
+					System.out.println("#  |______Menu:_________|__________________________________|__Opção:_| #");
+					System.out.println("#  |Listar Veterinários_|__________________________________|____1____| #");
+					System.out.println("#  |__Novo Cadastro_____|__________________________________|____2____| #");
+					System.out.println("#  |__Buscar Cliente__|____________________________________|____3____| #");
+					System.out.println("#  |__Editar Cliente__|____________________________________|____4____| #");
+					System.out.println("#  |__Excluir Cliente_|____________________________________|____5____| #");
+					System.out.println("#  |__Menu Anterior___|____________________________________|___-1____| #");
+					System.out.println("#                                                                      #");
+					System.out.println("########################################################################");
+					System.out.print("Digite Sua escolha: ");
+					flag=Integer.parseInt(scan.nextLine());
+					
+				}while(flag != -1);
 				break;
 			case 0:
 				break;
 
 			default:
+				System.out.println("Selecione uma das opções ofertadas acima!");
 				break;
 			}
 			
