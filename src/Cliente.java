@@ -90,7 +90,7 @@ public class Cliente {
 	 * #################### Listar clientes cadastrados: #################
 	 */
 	
-	public ArrayList<String> listarClientes() throws IOException{
+	public ArrayList<String> listarClientes() throws ArrayIndexOutOfBoundsException, IOException{
 		
 		//Abrindo arquivo para leitura:
 		FileReader file = new FileReader("ListaDeClientes.txt");
@@ -101,12 +101,13 @@ public class Cliente {
 		
 		//Lendo dados do arquivo e salvando-os na ArrayList:
 		String vetor =reader.readLine();
-		while(vetor != null){
-			String linha = vetor.substring(1, vetor.length()-1);
-            clientes.add(linha);
-            vetor = reader.readLine();
+		if(vetor != null){
+			do {
+				String linha = vetor.substring(1, vetor.length()-1);
+	            clientes.add(linha);
+	            vetor = reader.readLine();
+			}while(vetor != null);
         }
-        
         //Fechando arquivo utilizado:
 		file.close();
 		
@@ -119,7 +120,7 @@ public class Cliente {
 	/*
 	 * ############# Buscar clientes por meio do Cpf: ############
 	 */
-	public String buscaCpf(String cpf) throws IOException{
+	public String buscaCpf(String cpf) throws IOException, ArrayIndexOutOfBoundsException{
 		
 		//Cria um ArrayList e o preenche com o retorno do método listarClientes():
 		ArrayList<String> clientes= new ArrayList<>();
@@ -154,7 +155,7 @@ public class Cliente {
 	 * ############ Atualizar cliente cadastrado por cpf: ##############
 	 */
 	
-	public void editarClienteCadastrado(String cpfBuscado, String novoCpf, String nome, String endereco, String telefone) throws IOException{
+	public void editarClienteCadastrado(String cpfBuscado, String novoCpf, String nome, String endereco, String telefone) throws IOException, ArrayIndexOutOfBoundsException{
 
 		//Verificar se o cpf do paciente está cadastrado ( caso encontre, flag ==0, senão flag ==-1):
 		int flag = 0;
@@ -180,7 +181,7 @@ public class Cliente {
 	 */
 	
 
-	public void excluirClienteCadastrado(String cpf) throws IOException{
+	public void excluirClienteCadastrado(String cpf) throws IOException, ArrayIndexOutOfBoundsException{
 		//Criar ArrayList para receber os dados do arquivo:
 		ArrayList<String> listaDeClientes = new ArrayList<>();
 		listaDeClientes=listarClientes();

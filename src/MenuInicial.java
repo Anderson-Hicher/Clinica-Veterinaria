@@ -30,6 +30,7 @@ public class MenuInicial {
 			System.out.println("#  |____Para sair_____|____________________________________|____0____| #");
 			System.out.println("#                                                                      #");
 			System.out.println("########################################################################");
+			System.out.print("Digite a opção desejada: ");
 			flag=Integer.parseInt(scan.nextLine());
 			switch (flag) {
 			
@@ -94,19 +95,22 @@ public class MenuInicial {
 						try {
 							ArrayList<String> lista = cliente.listarClientes();
 							//Verificando conteudo da lista: 
-							if(lista.get(0).equals(null)) {
+							if(lista.size()==0) {
 								System.out.println("Não há clientes cadastrados no sistema.");
 							}else {
 								//Imprimindo lista de clientes
 								System.out.println("#############################################################");
 								System.out.println("Clientes cadastrados: ");
 								for(String linha: lista) {
+								 
 									System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 									System.out.println("~~"+linha);
 								}
 								System.out.println("#############################################################");
 							}
 							
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("Não há clientes cadastrados no sistema.");
 						} catch (IOException e) {
 							System.out.println("Erro! Não foi possivel listar pois o arquivo de cadastro de clientes não pode ser encontrado.");
 						}
@@ -132,6 +136,8 @@ public class MenuInicial {
 							}
 						} catch (IOException e) {
 							System.out.println("Erro. Busca não pode ser realizada pois o arquivo de cadastro de clientes não pode ser aberto.");
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("Erro! O vetor de dados está fora do compimento-pré estabelecido.");
 						}
 						break;
 					case 4:
@@ -151,19 +157,23 @@ public class MenuInicial {
 						try {
 							cliente.editarClienteCadastrado(cpfBuscado, novoCpf, nomeCliente, enderecoCliente, telefoneCliente);
 							System.out.println("\n################################");
-							System.out.println("#~Cliente Editado com sucesso!~#");
+							System.out.println("#~Cliente editado com sucesso!~#");
 							System.out.println("################################");
 						} catch (IOException e) {
 							System.out.println("Erro! Cliente não pode ser alterado pois o arquivo de cadastro do cliente não pode ser aberto.");
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("Erro! O vetor de dados está fora do compimento-pré estabelecido.");
 						}
 						break;
 					case 5:
-						System.out.println("Digite o CPF do cliente que será removido removido do sistema:");
+						System.out.println("Digite o CPF do cliente que será removido do sistema:");
 						cpfBuscado = scan.nextLine();
 						try {
 							cliente.excluirClienteCadastrado(cpfBuscado);
 						} catch (IOException e) {
 							System.out.println("Erro! Cliente não foi removido pois o sistema não pode abrir o arquivo de cadastrode clientes.");
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("Erro! O vetor de dados está fora do compimento-pré estabelecido.");
 						}
 						break;
 
@@ -216,13 +226,14 @@ public class MenuInicial {
 						try {
 							ArrayList<String> lista = paciente.listarPacientes();
 							//Verificando conteudo da lista: 
-							if(lista.get(0).equals(null)) {
+							if(lista.size() == 0) {
 								System.out.println("Não há pacientes cadastrados no sistema.");
 							}else {
 								//Imprimindo lista de pacientes
 								System.out.println("#############################################################");
 								System.out.println("Pacientes cadastrados: ");
 								for(String linha: lista) {
+									
 									System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 									System.out.println("~~"+linha);
 								}
@@ -231,6 +242,8 @@ public class MenuInicial {
 							
 						} catch (IOException e) {
 							System.out.println("Erro! Não foi possivel listar pois o arquivo de cadastro de pacientes não pode ser encontrado.");
+						} catch (StringIndexOutOfBoundsException e) {
+							System.out.println("Erro! O vetor de dados está fora do compimento-pré estabelecido.");
 						}
 						break;
 					case 2://Cadastro de Pacientes
@@ -245,9 +258,8 @@ public class MenuInicial {
 						System.out.print("\nDigite a raça do paciente: ");
 						paciente.setRaca(scan.nextLine().toLowerCase());
 						System.out.print("\nDigite o peso do paciente: ");
-						String entradaPeso = scan.nextLine();
-						entradaPeso.replace(",", ".");
-						paciente.setPeso(Double.parseDouble(entradaPeso));
+						Double entradaPeso = Double.parseDouble(scan.nextLine());
+						paciente.setPeso(entradaPeso);
 						System.out.print("\nDigite a idade do paciente: ");
 						paciente.setIdade(Integer.parseInt(scan.nextLine()));
 						System.out.print("\nDigite o CPF do dono do paciente: ");
@@ -320,6 +332,8 @@ public class MenuInicial {
 							}
 						} catch (IOException e) {
 							System.out.println("Erro. Busca não pode ser realizada pois o arquivo de cadastro de Pacientes não pode ser aberto.");
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("Erro! O vetor de dados está fora do compimento-pré estabelecido.");
 						}
 						break;
 						// Fim da busca deId's do paciente;
@@ -386,20 +400,24 @@ public class MenuInicial {
 						try {
 							paciente.editarPacienteCadastrado(idBuscado,nomePaciente, sexoPaciente, racaPaciente, pesoPaciente, idadePaciente,cpfDonoPaciente,novaDataCadastroPaciente, novaDataNascimentoPaciente);
 							System.out.println("\n#################################");
-							System.out.println("#~Paciente Editado com sucesso!~#");
+							System.out.println("#~Paciente editado com sucesso!~#");
 							System.out.println("#################################");
 						} catch (IOException e) {
 							System.out.println("Erro! Paciente não pode ser alterado pois o arquivo de cadastro do paciente não pode ser aberto.");
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("Erro! O vetor de dados está fora do compimento-pré estabelecido.");
 						}
 						break;
 					case 5:
 						//Excluido paciente cadastrado:
-						System.out.println("Digite o Id do Paciente que será removido removido do sistema:");
+						System.out.println("Digite o Id do Paciente que será removido do sistema:");
 						idBuscado = scan.nextLine();
 						try {
 							paciente.excluirPacienteCadastrado(idBuscado);
 						} catch (IOException e) {
 							System.out.println("Erro! Paciente não foi removido pois o sistema não pode abrir o arquivo de cadastro de pacientes.");
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("Erro! O vetor de dados está fora do compimento-pré estabelecido.");
 						}
 						break;
 
@@ -448,11 +466,11 @@ public class MenuInicial {
 							ArrayList<String> lista = veterinario.listarVeterinarios();
 							//Verificando conteudo da lista: 
 							if(lista.get(0).equals(null)) {
-								System.out.println("Não há veterinarios cadastrados no sistema.");
+								System.out.println("Não há veterinários cadastrados no sistema.");
 							}else {
 								//Imprimindo lista de veterinários
 								System.out.println("#############################################################");
-								System.out.println("Veterinarios cadastrados: ");
+								System.out.println("Veterinários cadastrados: ");
 								for(String linha: lista) {
 									System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 									System.out.println("~~"+linha);
@@ -462,6 +480,8 @@ public class MenuInicial {
 							
 						} catch (IOException e) {
 							System.out.println("Erro! Não foi possivel listar pois o arquivo de cadastro de veterinarios não pode ser encontrado.");
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("Erro! O vetor de dados está fora do compimento-pré estabelecido.");
 						}
 						break;
 						/*
@@ -481,12 +501,12 @@ public class MenuInicial {
 						//Cadastrando veterinário:
 						try {
 							veterinario.cadastroVeterinario(veterinario);
-							System.out.println("\n######################################");
+							System.out.println("\n#######################################");
 							System.out.println("#~Veterinário Cadastrado com sucesso!~#");
 							System.out.println("#######################################");
 							
 						} catch (IOException e) {
-							System.out.println("\n################################################");
+							System.out.println("\n#################################################");
 							System.out.println("#Erro! Não foi possível cadastrar o Veterinario.#");
 							System.out.println("#################################################");
 						}
@@ -498,10 +518,75 @@ public class MenuInicial {
 						/*
 						 *####################### Inicio da busca de veterinários. ##########################
 						 */
-						
+						//Recebendo CRMV do Veterinário que será buscado:
+						System.out.println("Digite o CRMV do Veterinário que será buscado:");
+						int crmvBuscado = Integer.parseInt(scan.nextLine());
+						try {
+							//Verificando Conteudo recebido
+							if(veterinario.buscaCrmv(crmvBuscado) == null) {
+								System.out.println("\"Não há veterinários cadastrados com este CRMV no sistema.\"");
+							}else {
+								System.out.println("#############################################################");
+								System.out.println("Veterinário Encontrado: ");
+								System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+								System.out.println(veterinario.buscaCrmv(crmvBuscado));
+								System.out.println("#############################################################");
+								
+							}
+						} catch (IOException e) {
+							System.out.println("Erro! Busca não pode ser realizada pois o arquivo de cadastro de veterinários não pode ser aberto.");
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("Erro! O vetor de dados está fora do compimento-pré estabelecido.");
+						}
 						
 						break;
+						/* 
+						 * ########################## Fim da busca de Veterinários ###########################
+						 */
+					case 4:
+						/*
+						 * ############################ Inicio da edição de veterinários: ########################
+						 */
 						
+						System.out.print("Digite o CRMV do veterinário que será alterado: ");
+						crmvBuscado = Integer.parseInt(scan.nextLine());
+						System.out.print("\nDigite o novo CRMV que será cadastrado: ");
+						int novoCrmv = Integer.parseInt(scan.nextLine());
+						System.out.print("\nDigite o novo nome que será cadastrado: ");
+						String nomeVeterinario = scan.nextLine();
+						System.out.print("\nDigite a nova especialidade que será cadastrada: ");
+						String especialidadeVeterinario = scan.nextLine();
+						try {
+							veterinario.editarVeterinarioCadastrado(crmvBuscado, novoCrmv, nomeVeterinario, especialidadeVeterinario);
+							System.out.println("\n####################################");
+							System.out.println("#~Veterinário editado com sucesso!~#");
+							System.out.println("####################################");
+						} catch (IOException e) {
+							System.out.println("Erro! Veterinário não pode ser alterado pois o arquivo de cadastro do veterinário não pode ser aberto.");
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("Erro! O vetor de dados está fora do compimento-pré estabelecido.");
+						}
+						break;
+						/*
+						 * ########################### Fim da edição de veterinários #############################
+						 */
+					case 5:
+						/*
+						 *############################# Inicio da exclusão de veterinários #########################
+						 */
+						System.out.println("Digite o CRMV do veterinároi que será removido do sistema:");
+						crmvBuscado = Integer.parseInt(scan.nextLine());
+						try {
+							veterinario.excluirVeterinarioCadastrado(crmvBuscado);
+						} catch (IOException e) {
+							System.out.println("Erro! Veterinário não foi removido pois o sistema não pôde abrir o arquivo de cadastro de Veterinários.");
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("Erro! O vetor de dados está fora do compimento-pré estabelecido.");
+						}
+						break;
+						/*
+						 * ############################ Fim da exclusão de veterinários. ###########################
+						 */
 					default:
 						System.out.println("Selecione uma das opções ofertadas acima!");
 						break;

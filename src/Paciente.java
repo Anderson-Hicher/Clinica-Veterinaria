@@ -146,7 +146,7 @@ public class Paciente {
 	 ######################### Listar pacientes cadastrados: #########################
 	 */
 	
-	public ArrayList<String> listarPacientes() throws IOException{
+	public ArrayList<String> listarPacientes() throws IOException, StringIndexOutOfBoundsException{
 		
 		//Abrindo arquivo para leitura:
 		FileReader file = new FileReader("ListaDePacientes.txt");
@@ -157,13 +157,13 @@ public class Paciente {
 		
 		//Lendo dados do arquivo e salvando-os na ArrayList:
 		String vetor =reader.readLine();
-		while(vetor != null){
-			String linha = vetor.substring(1, vetor.length()-1);
-            pacientes.add(linha);
-            vetor = reader.readLine();
-        }
-		
-        
+		if(vetor != null){
+			do {
+				String linha = vetor.substring(1, vetor.length()-1);
+	            pacientes.add(linha);
+	            vetor = reader.readLine();
+			}while(vetor != null);
+        }        
         //Fechando arquivo utilizado:
 		file.close();
 		
@@ -177,7 +177,7 @@ public class Paciente {
 	 ######################### Buscar Paciente Cadastrado pelo Id:#########################
 	 */
 	
-	public String buscaId(String id) throws IOException{
+	public String buscaId(String id) throws IOException, ArrayIndexOutOfBoundsException{
 		
 		//Cria um ArrayList e o preenche com o retorno do método listarPacientes():
 		ArrayList<String> pacientes= new ArrayList<>();
@@ -212,7 +212,7 @@ public class Paciente {
 	 ######################### Atualizar Paciente Cadastrado por Id:#########################
 	 */
 	
-	public void editarPacienteCadastrado(String idBusca, String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro, String dataNascimento) throws IOException{
+	public void editarPacienteCadastrado(String idBusca, String nome, String sexo, String raca, double peso, int idade, String cpfDono, String dataCadastro, String dataNascimento) throws IOException, ArrayIndexOutOfBoundsException{
 		
 		Paciente pacienteEditado = new Paciente(nome, sexo, raca, peso, idade, cpfDono, dataCadastro, dataNascimento);
 		//Verificar se o Id do paciente está cadastrado ( caso encontre, flag ==0, senão flag ==1):
@@ -237,7 +237,7 @@ public class Paciente {
 	 ######################### Excluir Paciente Cadastrado por Id:#########################
 	 */
 	
-	public void excluirPacienteCadastrado(String id) throws IOException{
+	public void excluirPacienteCadastrado(String id) throws IOException, ArrayIndexOutOfBoundsException{
 		//Criar ArrayList para receber os dados do arquivo:
 		ArrayList<String> listaDePacientes = new ArrayList<>();
 		listaDePacientes=listarPacientes();
@@ -285,10 +285,10 @@ public class Paciente {
 		int ano = Integer.parseInt(data.substring(6));
 
 		// 1º Dígito
-		id += String.valueOf((dia + mes + ano ) % 10);
+		id += Integer.toString((dia + mes + ano ) % 10);
 
 		// 2º Dígito
-		id += String.valueOf((dia * mes * ano) % 10);
+		id += Integer.toString((dia * mes * ano) % 10);
 
 		return id;
 	}

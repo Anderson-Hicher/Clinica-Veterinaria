@@ -79,7 +79,7 @@ public class Veterinario {
 	 ######################### Listar veterinários cadastrados: #########################
 	 */
 	
-	public ArrayList<String> listarVeterinarios() throws IOException{
+	public ArrayList<String> listarVeterinarios() throws IOException, ArrayIndexOutOfBoundsException{
 		
 		//Abrindo arquivo para leitura:
 		FileReader file = new FileReader("ListaDeVeterinarios.txt");
@@ -109,7 +109,7 @@ public class Veterinario {
 	 ######################### Buscar Veterinario Cadastrado pelo CRMV:#########################
 	 */
 	
-	public String buscaCrmv(int crmv) throws IOException{
+	public String buscaCrmv(int crmv) throws IOException, ArrayIndexOutOfBoundsException{
 		
 		//Cria um ArrayList e o preenche com o retorno do método listarVeterinarios():
 		ArrayList<String> veterinarios= new ArrayList<>();
@@ -143,7 +143,7 @@ public class Veterinario {
 	 ######################### Atualizar Veterinário Cadastrado por CRMV:#########################
 	 */
 	
-	public void editarVeterinarioCadastrado(int crmvBusca, int novoCrmv, String nome, String especialidade) throws IOException{
+	public void editarVeterinarioCadastrado(int crmvBusca, int novoCrmv, String nome, String especialidade) throws IOException, ArrayIndexOutOfBoundsException{
 
 		//Verificar se o crmv do veterinário está cadastrado ( caso encontre, flag ==0, senão flag ==-1):
 		int flag = 0;
@@ -169,7 +169,7 @@ public class Veterinario {
 	 ######################### Excluir Veterinário Cadastrado por CRMV:#########################
 	 */
 	
-	public void excluirVeterinarioCadastrado(int crmv) throws IOException{
+	public void excluirVeterinarioCadastrado(int crmv) throws IOException, ArrayIndexOutOfBoundsException{
 		//Criar ArrayList para receber os dados do arquivo:
 		ArrayList<String> listaDeVeterinarios = new ArrayList<>();
 		listaDeVeterinarios=listarVeterinarios();
