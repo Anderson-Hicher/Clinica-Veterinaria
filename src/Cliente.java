@@ -79,7 +79,7 @@ public class Cliente {
 		
 		//Cadastrando Vetor de clientes:
 		writer.println(clientes);
-		
+
 		//Fechando Arquivo de clientes:
 		file.close();
 	}
@@ -143,7 +143,7 @@ public class Cliente {
 			}
 		}
 		
-		//Se o nome não for encontrado retorna nulo:
+		//Se o cpf não for encontrado retorna nulo:
 		return null;
 	}
 	
