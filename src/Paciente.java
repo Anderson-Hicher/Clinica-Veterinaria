@@ -270,27 +270,6 @@ public class Paciente {
 		Scanner leia = new Scanner(System.in);
 		boolean valido = true;
 
-		System.out.print("Digite o nome completo do Paciente: ");
-		nomePaciente = leia.nextLine().toUpperCase();
-
-		do {
-			valido = true;
-
-			System.out.print("Digite a data (DD/MM/YYYY): ");
-			data = leia.next();
-
-			if (data.length() != 10) {
-				System.out.println("ERRO: Você não digitou no formato DD/MM/YYYY com 10 caracteres!");
-				valido = false;
-			} else {
-
-				if (data.charAt(2) != '/' && data.charAt(5) != '/') {
-					System.out.println("ERRO: Você não digitou no formato DD/MM/YYYY!");
-					valido = false;
-				}
-			}
-
-		} while (!valido);
 
 		id += Character.toString(nomePaciente.charAt(0)); // codigo += "" +	// nome.charAt(0);
 
