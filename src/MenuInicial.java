@@ -391,7 +391,16 @@ public class MenuInicial {
 						} catch (IOException e) {
 							System.out.println("Erro! Paciente não pode ser alterado pois o arquivo de cadastro do paciente não pode ser aberto.");
 						}
-						
+						break;
+					case 5:
+						//Excluido paciente cadastrado:
+						System.out.println("Digite o Id do Paciente que será removido removido do sistema:");
+						idBuscado = scan.nextLine();
+						try {
+							paciente.excluirPacienteCadastrado(idBuscado);
+						} catch (IOException e) {
+							System.out.println("Erro! Paciente não foi removido pois o sistema não pode abrir o arquivo de cadastro de pacientes.");
+						}
 						break;
 
 					default:
