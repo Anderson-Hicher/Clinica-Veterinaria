@@ -416,6 +416,7 @@ public class MenuInicial {
 				/*
 				 * ################################ Inicio do menu Veterinário ##########################
 				 */
+				Veterinario veterinario = new Veterinario();
 				do {
 					/*
 					 * ######################### Exibindo Menu de clientes: ###########################################
@@ -424,21 +425,97 @@ public class MenuInicial {
 					System.out.println("# Você está no menu de Veterinários, Selecione entre as opções abaixo: #");
 					System.out.println("#                                                                      #");
 					System.out.println("#  ___________________________________________________________________ #");
-					System.out.println("#  |______Menu:_________|__________________________________|__Opção:_| #");
-					System.out.println("#  |Listar Veterinários_|__________________________________|____1____| #");
-					System.out.println("#  |__Novo Cadastro_____|__________________________________|____2____| #");
-					System.out.println("#  |__Buscar Cliente__|____________________________________|____3____| #");
-					System.out.println("#  |__Editar Cliente__|____________________________________|____4____| #");
-					System.out.println("#  |__Excluir Cliente_|____________________________________|____5____| #");
-					System.out.println("#  |__Menu Anterior___|____________________________________|___-1____| #");
+					System.out.println("#  |______  Menu:________|_________________________________|__Opção:_| #");
+					System.out.println("#  |Listar Veterinários__|_________________________________|____1____| #");
+					System.out.println("#  |__Novo Cadastro______|_________________________________|____2____| #");
+					System.out.println("#  |__Buscar Veterinario_|_________________________________|____3____| #");
+					System.out.println("#  |__Editar Veterinario_|_________________________________|____4____| #");
+					System.out.println("#  |__Excluir Veterinario|_________________________________|____5____| #");
+					System.out.println("#  |__Menu Anterior______|_________________________________|___-1____| #");
 					System.out.println("#                                                                      #");
 					System.out.println("########################################################################");
 					System.out.print("Digite Sua escolha: ");
 					flag=Integer.parseInt(scan.nextLine());
-					
+					/*
+					 * Inicio do switch do menu Veterinario:
+					 */
+					switch (flag) {
+					case 1:
+						/*
+						 * ########################### Listando Veterinários ##########################################
+						 */
+						try {
+							ArrayList<String> lista = veterinario.listarVeterinarios();
+							//Verificando conteudo da lista: 
+							if(lista.get(0).equals(null)) {
+								System.out.println("Não há veterinarios cadastrados no sistema.");
+							}else {
+								//Imprimindo lista de veterinários
+								System.out.println("#############################################################");
+								System.out.println("Veterinarios cadastrados: ");
+								for(String linha: lista) {
+									System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+									System.out.println("~~"+linha);
+								}
+								System.out.println("#############################################################");
+							}
+							
+						} catch (IOException e) {
+							System.out.println("Erro! Não foi possivel listar pois o arquivo de cadastro de veterinarios não pode ser encontrado.");
+						}
+						break;
+						/*
+						 *####################### Fim da impressão da lista de veterinários. ##########################
+						 */
+					case 2:
+						/*
+						 *####################### Inicio do cadastro de veterinários. ##########################
+						 */
+						//Recebendo dados para cadastro do Veterinário:
+						System.out.print("\nDigite o CRMV do veterinário que será cadastrado: ");
+						veterinario.setCrmv(Integer.parseInt(scan.nextLine()));
+						System.out.print("\nDigite o nome do Veterinario que será cadastrado: ");
+						veterinario.setNome(scan.nextLine());
+						System.out.print("\nDigite a especialidade do Veterinario que será cadastrado: ");
+						veterinario.setEspecialidade(scan.nextLine());
+						//Cadastrando veterinário:
+						try {
+							veterinario.cadastroVeterinario(veterinario);
+							System.out.println("\n######################################");
+							System.out.println("#~Veterinário Cadastrado com sucesso!~#");
+							System.out.println("#######################################");
+							
+						} catch (IOException e) {
+							System.out.println("\n################################################");
+							System.out.println("#Erro! Não foi possível cadastrar o Veterinario.#");
+							System.out.println("#################################################");
+						}
+						break;
+						/*
+						 *####################### Fim do cadastro de veterinários. ##########################
+						 */
+					case 3:
+						/*
+						 *####################### Inicio da busca de veterinários. ##########################
+						 */
+						
+						
+						break;
+						
+					default:
+						System.out.println("Selecione uma das opções ofertadas acima!");
+						break;
+						/*
+						 * ############################### Fim do Switch case do menu veterinários ####################
+						 */
+					}
 				}while(flag != -1);
 				break;
+				/*
+				 * ############################## Fim do menu de veterinários #########################################
+				 */
 			case 0:
+				flag = 0;
 				break;
 
 			default:
@@ -446,7 +523,7 @@ public class MenuInicial {
 				break;
 			}
 			
-		}while(flag!=0);
+		}while(flag != 0);
 		scan.close();
 		
 	} 
