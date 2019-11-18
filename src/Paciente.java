@@ -1,5 +1,5 @@
 /**
- * @author andersonhicher and nayara;
+ * @authors andersonhicher, nayara, joseaparecido and larissalima;
  *
  */
 
@@ -9,7 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 
@@ -51,6 +50,9 @@ public class Paciente {
 	
 	public String getId() {
 		return id;
+	}
+	public void setId(String nome, String dataNascimento) {
+		this.id=geradorId(nome, dataNascimento);
 	}
 	
 
@@ -267,8 +269,6 @@ public class Paciente {
 	
 	public String geradorId(String nomePaciente, String data){
 		String id="";
-		Scanner leia = new Scanner(System.in);
-		boolean valido = true;
 
 
 		id += Character.toString(nomePaciente.charAt(0)); // codigo += "" +	// nome.charAt(0);

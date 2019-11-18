@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.io.IOException;;
 
 /**
- * @author andersonhicher
+ * @authors andersonhicher, nayara, joseaparecido and larissalima;
  *
  */
 
@@ -65,17 +65,13 @@ public class MenuInicial {
 						//Recebendo dados de cadastro
 						System.out.println("\n\n\n\n########################################################################");
 						System.out.print("Digite o CPF do cliente: ");
-						String cpf=scan.nextLine();
-						cliente.setCpf(cpf);
+						cliente.setCpf(scan.nextLine());
 						System.out.print("Digite o nome do cliente: ");
-						String nome=scan.nextLine();
-						cliente.setNome(nome);
+						cliente.setNome(scan.nextLine());
 						System.out.print("Digite o endereço do cliente: ");
-						String endereco=scan.nextLine();
-						cliente.setEndereco(endereco);
+						cliente.setEndereco(scan.nextLine());
 						System.out.print("Digite o telefone do cliente: ");
-						String telefone=scan.nextLine();
-						cliente.setTelefone(telefone);
+						cliente.setTelefone(scan.nextLine());
 						
 						//Cadastrando Cliente:
 						try {
@@ -144,16 +140,16 @@ public class MenuInicial {
 						 */
 						System.out.print("Digite o CPF que será alterado: ");
 						cpfBuscado = scan.nextLine();
-						System.out.print("Digite o novo CPF que será cadastrado: ");
+						System.out.print("\nDigite o novo CPF que será cadastrado: ");
 						String novoCpf = scan.nextLine();
-						System.out.print("Digite o novo nome que será cadastrado: ");
-						nome = scan.nextLine();
-						System.out.print("Digite o novo endereço que será cadastrado: ");
-						endereco = scan.nextLine();
-						System.out.print("Digite o novo telefone que será cadastrado: ");
-						telefone = scan.nextLine();
+						System.out.print("\nDigite o novo nome que será cadastrado: ");
+						String nomeCliente = scan.nextLine();
+						System.out.print("\nDigite o novo endereço que será cadastrado: ");
+						String enderecoCliente = scan.nextLine();
+						System.out.print("\nDigite o novo telefone que será cadastrado: ");
+						String telefoneCliente = scan.nextLine();
 						try {
-							cliente.editarClienteCadastrado(cpfBuscado, novoCpf, nome, endereco, telefone);
+							cliente.editarClienteCadastrado(cpfBuscado, novoCpf, nomeCliente, enderecoCliente, telefoneCliente);
 							System.out.println("\n###################################");
 							System.out.println("#~Cliente Cadastrado com sucesso!~#");
 							System.out.println("###################################");
@@ -215,7 +211,7 @@ public class MenuInicial {
 					case 1:
 						 //Listando clientes:
 						/*
-						 * ##################### Listando Clientes Cadastrados: ######################
+						 * ##################### Listando Pacientes Cadastrados: ######################
 						 */
 						try {
 							ArrayList<String> lista = paciente.listarPacientes();
@@ -241,6 +237,103 @@ public class MenuInicial {
 						/*
 						 * #################### Cadastrando Novo Paciente: ################################
 						 */
+						//Recebendo dados do Paciente:
+						System.out.print("Digite o nome completo do paciente: ");
+						paciente.setNome(scan.nextLine().toUpperCase());
+						System.out.print("\nDigite o Sexo do paciente: ");
+						paciente.setSexo(scan.nextLine().toLowerCase());
+						System.out.print("\nDigite a raça do paciente: ");
+						paciente.setRaca(scan.nextLine().toLowerCase());
+						System.out.print("\nDigite o peso do paciente: ");
+						String entradaPeso = scan.nextLine();
+						entradaPeso.replace(",", ".");
+						paciente.setPeso(Double.parseDouble(entradaPeso));
+						System.out.print("\nDigite a idade do paciente: ");
+						paciente.setIdade(Integer.parseInt(scan.nextLine()));
+						System.out.print("\nDigite o CPF do dono do paciente: ");
+						paciente.setCpfDono(scan.nextLine());
+						boolean valido = true;
+						//Inserindo data de cadastro:
+						String dataCadastro;
+						do {
+							System.out.print("\nDigite a data de hoje (DD/MM/AAAA): ");
+							//--------------------------
+							dataCadastro = scan.next();
+
+							if (dataCadastro.length() != 10) {
+								System.out.println("ERRO: Você não digitou no formato DD/MM/YYYY com 10 caracteres!");
+								valido = false;
+							} else {
+
+								if (dataCadastro.charAt(2) != '/' && dataCadastro.charAt(5) != '/') {
+									System.out.println("ERRO: Você não digitou no formato DD/MM/YYYY!");
+									valido = false;
+								}
+							}
+							//--------------------------
+							
+						}while(!valido);
+						paciente.setDataCadastro(dataCadastro);
+						//Inserindo data de nascimento do paciente:
+						String dataNascimento;
+						do {
+							System.out.print("\nDigite a data de nascimento do paciente(DD/MM/AAAA): ");
+							//--------------------------
+							dataNascimento = scan.next();
+
+							if (dataNascimento.length() != 10) {
+								System.out.println("ERRO: Você não digitou no formato DD/MM/YYYY com 10 caracteres!");
+								valido = false;
+							} else {
+
+								if (dataNascimento.charAt(2) != '/' && dataNascimento.charAt(5) != '/') {
+									System.out.println("ERRO: Você não digitou no formato DD/MM/YYYY!");
+									valido = false;
+								}
+							}
+							//--------------------------
+							
+						}while(!valido);
+						paciente.setDataNascimento(dataNascimento);
+						
+						//Setando Id do Paciente:
+						paciente.setId(paciente.getNome(), paciente.getDataNascimento());
+						break;
+						/*
+						 * ################################## Buscando Paciente: #################################
+						 */
+					case 3:
+						//Recebendo Id do cliente que será buscado:
+						System.out.println("Digite o Id do paciente que será buscado:");
+						String idBuscado = scan.nextLine();
+						try {
+							//Verificando Conteudo recebido
+							if(paciente.buscaId(idBuscado).equals(null)) {
+								System.out.println("\"Não há pacientes cadastrados com este id no sistema.\"");
+							}else {
+								System.out.println("#############################################################");
+								System.out.println("Paciente Encontrado: ");
+								System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+								System.out.println(paciente.buscaId(idBuscado));
+								System.out.println("#############################################################");
+								
+							}
+						} catch (IOException e) {
+							System.out.println("Erro. Busca não pode ser realizada pois o arquivo de cadastro de Pacientes não pode ser aberto.");
+						}
+						break;
+						// Fim da busca deId's do paciente;
+					/*
+					 * ################################### Editando Paciente Cadastrado ################################
+					 */
+					case 4:
+						//Recebendo id do paciente que será alterado:
+						System.out.print("Digite o Id do paciente que será alterado:");
+						idBuscado = scan.nextLine();
+						System.out.print("\nDigite o novo valor para o nome do paciente:");
+						String nomePaciente = scan.nextLine();
+						System.out.print("\nDigite o novo valor para o sexo do paciente: ");
+						String sexoPaciente = scan.nextLine();
 						break;
 
 					default:
@@ -249,6 +342,9 @@ public class MenuInicial {
 					}
 				}while(flag != -1);
 				break;
+				/*
+				 * ################################## Fim do Menu Paciente  ############################
+				 */
 			case 3:
 				break;
 			case 0:

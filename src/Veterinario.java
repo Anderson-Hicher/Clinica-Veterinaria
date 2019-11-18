@@ -1,5 +1,5 @@
 /**
- * @author andersonhicher
+ * @authors andersonhicher, nayara, joseaparecido and larissalima;
  *
  */
 
@@ -182,7 +182,6 @@ public class Veterinario {
 		//Iterando lista:
 		int flag = 0;
 		for(String iterador: listaDeVeterinarios) {
-			
 			//Percorre o ArrayList e armazena os dados do veterinário atual 
 			String veterinario = listaDeVeterinarios.get(flag);
 			//Quebra a string de dados

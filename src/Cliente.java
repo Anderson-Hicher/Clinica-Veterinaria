@@ -1,3 +1,8 @@
+/**
+ * @authors andersonhicher, nayara, joseaparecido and larissalima;
+ *
+ */
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -5,10 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-/**
- * @author andersonhicher
- *
- */
+
 public class Cliente {
 	private String cpf;
 	private String nome;
