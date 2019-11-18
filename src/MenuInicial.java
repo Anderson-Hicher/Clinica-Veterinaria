@@ -150,9 +150,9 @@ public class MenuInicial {
 						String telefoneCliente = scan.nextLine();
 						try {
 							cliente.editarClienteCadastrado(cpfBuscado, novoCpf, nomeCliente, enderecoCliente, telefoneCliente);
-							System.out.println("\n###################################");
-							System.out.println("#~Cliente Cadastrado com sucesso!~#");
-							System.out.println("###################################");
+							System.out.println("\n################################");
+							System.out.println("#~Cliente Editado com sucesso!~#");
+							System.out.println("################################");
 						} catch (IOException e) {
 							System.out.println("Erro! Cliente não pode ser alterado pois o arquivo de cadastro do cliente não pode ser aberto.");
 						}
@@ -331,9 +331,67 @@ public class MenuInicial {
 						System.out.print("Digite o Id do paciente que será alterado:");
 						idBuscado = scan.nextLine();
 						System.out.print("\nDigite o novo valor para o nome do paciente:");
-						String nomePaciente = scan.nextLine();
+						String nomePaciente = scan.nextLine().toUpperCase();
 						System.out.print("\nDigite o novo valor para o sexo do paciente: ");
-						String sexoPaciente = scan.nextLine();
+						String sexoPaciente = scan.nextLine().toLowerCase();
+						System.out.print("\nDigite o novo valor para a raça do paciente: ");
+						String racaPaciente = scan.nextLine();
+						System.out.print("\nDigite o novo valor para o peso do paciente: ");
+						double pesoPaciente = Double.parseDouble(scan.nextLine());
+						System.out.print("\nDigite o novo valor para a idade do paciente: ");
+						int idadePaciente = Integer.parseInt(scan.nextLine());
+						System.out.print("\nDigite o novo valor para o CPF do dono do paciente: ");
+						String cpfDonoPaciente = scan.nextLine();
+						String novaDataCadastroPaciente;
+						valido = true;
+						do {
+							System.out.print("\nDigite a data de hoje (DD/MM/AAAA): ");
+							//--------------------------
+							novaDataCadastroPaciente = scan.next();
+
+							if (novaDataCadastroPaciente.length() != 10) {
+								System.out.println("ERRO: Você não digitou no formato DD/MM/YYYY com 10 caracteres!");
+								valido = false;
+							} else {
+
+								if (novaDataCadastroPaciente.charAt(2) != '/' && novaDataCadastroPaciente.charAt(5) != '/') {
+									System.out.println("ERRO: Você não digitou no formato DD/MM/YYYY!");
+									valido = false;
+								}
+							}
+							//--------------------------
+							
+						}while(!valido);
+						String novaDataNascimentoPaciente;
+						do {
+							System.out.print("\nDigite a data de nascimento do paciente(DD/MM/AAAA): ");
+							//--------------------------
+							novaDataNascimentoPaciente = scan.next();
+
+							if (novaDataNascimentoPaciente.length() != 10) {
+								System.out.println("ERRO: Você não digitou no formato DD/MM/YYYY com 10 caracteres!");
+								valido = false;
+							} else {
+
+								if (novaDataNascimentoPaciente.charAt(2) != '/' && novaDataNascimentoPaciente.charAt(5) != '/') {
+									System.out.println("ERRO: Você não digitou no formato DD/MM/YYYY!");
+									valido = false;
+								}
+							}
+							//--------------------------
+							
+						}while(!valido);
+						
+						//Enviando dados cadastrados para o método editarPacienteCadastrado() na classe Paciente:
+						try {
+							paciente.editarPacienteCadastrado(idBuscado,nomePaciente, sexoPaciente, racaPaciente, pesoPaciente, idadePaciente,cpfDonoPaciente,novaDataCadastroPaciente, novaDataNascimentoPaciente);
+							System.out.println("\n#################################");
+							System.out.println("#~Paciente Editado com sucesso!~#");
+							System.out.println("#################################");
+						} catch (IOException e) {
+							System.out.println("Erro! Paciente não pode ser alterado pois o arquivo de cadastro do paciente não pode ser aberto.");
+						}
+						
 						break;
 
 					default:
