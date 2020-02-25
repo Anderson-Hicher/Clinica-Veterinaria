@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.io.IOException;;
 
 /**
- * @authors andersonhicher;
+ * @authors andersonhicher, nayara, joseAparecido, larissalima;
  *
  */
 
