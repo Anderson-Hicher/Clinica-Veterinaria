@@ -6,7 +6,7 @@ import java.io.IOException;
 
 
 /**
- * @authors andersonhicher, nayara, joseaparecido and larissalima;
+ * @authors andersonhicher;
  *
  */
 

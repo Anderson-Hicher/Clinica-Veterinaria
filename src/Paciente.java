@@ -1,5 +1,5 @@
 /**
- * @authors andersonhicher, nayara, joseaparecido and larissalima;
+ * @authors andersonhicher;
  *
  */
 
